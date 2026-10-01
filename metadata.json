@@ -1,0 +1,6 @@
+{
+  "name": "AURA VISTA | 3D Billboard Advertising Network",
+  "description": "Explore prime urban billboard locations in an interactive 3D virtual environment. Preview custom brand creative live on physical and digital billboard screens with real-time lighting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
