@@ -314,15 +314,69 @@ npm run lint
 
 ---
 
-## 9. Build & Production Deployment
+## 9. Build & Production Deployment Guide (Git, GitHub Pages, Vercel & Netlify)
 
-To compile an optimized production build:
+### ❓ Git پر Push کرنے کے بعد ویب سائٹ ویسی نظر کیوں نہیں آتی؟ (Common Issue Explained)
+جب آپ پروجیکٹ کو Git یا GitHub پر Push کرتے ہیں:
+1. **GitHub Pages خام سورس کوڈ کو بغیر Build کے نہیں چلا سکتا**: `index.html` میں ماڈرن 3D لائبریریز (`Three.js`, `MapLibre GL`, `GSAP`) ماڈیولز کے طور پر استعمال ہوتی ہیں۔ اگر آپ GitHub Pages کو صرف خام `main` برانچ کی روٹ فائل دکھائیں گے تو براؤزر `Failed to resolve module specifier` ایرر دیتا ہے اور اسکرین بلینک رہ جاتی ہے۔
+2. **پاتھس (Relative Paths)**: GitHub Pages پر ویب سائٹ اکثر سب فولڈر (جیسے `https://username.github.io/repo-name/`) میں ہوتی ہے۔ اب ہم نے `vite.config.ts` میں `base: './'` سیٹ کر دیا ہے اور تمام امیجز کو `./images/campaigns/...` کر دیا ہے، جس سے ہر قسم کی ہوسٹنگ پر تمام فائلز پرفیکٹ لوڈ ہوں گی۔
+
+---
+
+### 🚀 طریقہ 1: GitHub Pages پر 1-کلک آٹومیٹک ڈپلائمنٹ (Automated GitHub Actions)
+ہم نے پروجیکٹ میں `.github/workflows/deploy.yml` شامل کر دیا ہے۔ آپ کو صرف یہ ایک چھوٹا سا سیٹ اپ GitHub پر کرنا ہے:
+
+1. اپنے GitHub ریپوزیٹری پیج پر جائیں۔
+2. اوپر **Settings** ٹیب پر کلک کریں۔
+3. بائیں جانب مینو میں **Pages** پر کلک کریں۔
+4. **Build and deployment** سیکشن میں:
+   - **Source** کے ڈراپ ڈاؤن سے **"GitHub Actions"** منتخب کریں۔
+5. بس! اب جب بھی آپ `git push` کریں گے، GitHub Actions خودکار طور پر:
+   - پروجیکٹ کو بلڈ کرے گا (`npm run build`)
+   - اور `dist/` فولڈر کو چند سیکنڈ میں **GitHub Pages** پر لائیو پبلش کر دے گا!
+
+---
+
+### ⚡ طریقہ 2: Vercel پر فری 1-کلک لائیو ہوسٹنگ (Recommended for Fastest Speed)
+Vercel جدید ترین WebGL اور Vite ایپلی کیشنز کے لیے بہترین اور تیز ترین ہوسٹنگ ہے:
+
+1. [Vercel.com](https://vercel.com/) پر لاگ ان کریں۔
+2. **"Add New Project"** پر کلک کریں اور اپنا GitHub ریپوزٹری منتخب کریں۔
+3. ہم نے پروجیکٹ میں `vercel.json` فائل بنا دی ہے، اس لیے آپ کو کوئی سیٹنگ تبدیل کرنے کی ضرورت نہیں ہے۔
+4. **Deploy** پر کلک کریں۔ 30 سیکنڈ میں آپ کی ویب سائٹ پوری دنیا کے لیے لائیو ہو جائے گی!
+
+---
+
+### 🌐 طریقہ 3: Netlify پر لائیو ہوسٹنگ
+1. [Netlify.com](https://www.netlify.com/) پر جائیں اور لاگ ان کریں۔
+2. **"Import from Git"** پر کلک کریں اور اپنا ریپوزٹری منتخب کریں۔
+3. پروجیکٹ میں `netlify.toml` موجود ہے جو خودکار طور پر `npm run build` اور `dist` فولڈر کو پبلش کر دے گا۔
+
+---
+
+### 💻 طریقہ 4: اپنے کمپیوٹر پر لوکل چلانا (Local Machine)
+اگر آپ پروجیکٹ کو اپنے لوکل کمپیوٹر پر چلانا چاہتے ہیں:
 ```bash
-npm run build
+# 1. کوڈ کلون کریں
+git clone <your-github-repo-url>
+cd <repo-name>
+
+# 2. پیکجز انسٹال کریں
+npm install
+
+# 3. لوکل سرور اسٹارٹ کریں
+npm run dev
 ```
+پھر براؤزر میں کھولیں: **`http://localhost:3000`**
 
-To run the production full-stack server:
+---
+
+### 🛠️ Manual Build Commands:
 ```bash
+# پروڈکشن بنڈل تیار کرنے کے لیے:
+npm run build
+
+# فل اسٹیک نوڈ سرور چلانے کے لیے:
 npm start
 ```
 
