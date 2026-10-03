@@ -20,6 +20,14 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
+      proxy: {
+        '/api/tiles/satellite': {
+          target: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api\/tiles\/satellite/, ''),
+        },
+      },
     },
   };
 });

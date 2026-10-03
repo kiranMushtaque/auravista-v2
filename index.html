@@ -411,7 +411,7 @@
       width: 240px;
       height: 240px;
       pointer-events: none;
-      z-index: 25;
+      z-index: 120;
       display: none;
       flex-direction: column;
       align-items: center;
@@ -666,14 +666,100 @@
       background: linear-gradient(to bottom, #f59e0b, rgba(245, 158, 11, 0.2));
     }
 
+    .pin-sky-beacon {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 70px;
+      background: linear-gradient(to top, rgba(245, 158, 11, 0.95), rgba(56, 189, 248, 0.8), transparent);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+      pointer-events: none;
+      opacity: 0.9;
+      animation: beaconPulse 2.2s infinite alternate ease-in-out;
+    }
+
+    @keyframes beaconPulse {
+      0% { height: 50px; opacity: 0.7; }
+      100% { height: 95px; opacity: 1; box-shadow: 0 0 16px rgba(56, 189, 248, 1); }
+    }
+
     .pin-radar-ring {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #f59e0b;
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       pointer-events: none;
+      box-shadow: 0 0 12px #f59e0b;
+    }
+
+    .pin-radar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245, 158, 11, 0.75);
+      animation: pinRadarPulse 2.2s infinite ease-out;
+    }
+
+    @keyframes pinRadarPulse {
+      0% { transform: scale(0.3); opacity: 1; }
+      100% { transform: scale(3.5); opacity: 0; }
+    }
+
+    .billboard-marker-pin.clicked .pin-badge {
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.9) !important;
+      transform: scale(1.18);
+    }
+
+    /* Orbit View Active States */
+    .hud-btn#btn-sky-view {
+      border-color: rgba(56, 189, 248, 0.45);
+      background: rgba(56, 189, 248, 0.08);
+      color: #38bdf8;
+      transition: all 0.25s ease;
+    }
+
+    .hud-btn#btn-sky-view:hover {
+      border-color: rgba(56, 189, 248, 0.9);
+      background: rgba(56, 189, 248, 0.22);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+      color: #ffffff;
+    }
+
+    .hud-btn#btn-sky-view.active {
+      border-color: #38bdf8;
+      background: rgba(56, 189, 248, 0.28);
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+      color: #ffffff;
+    }
+
+    .btn-action-sky {
+      background: rgba(56, 189, 248, 0.12) !important;
+      border: 1px solid rgba(56, 189, 248, 0.5) !important;
+      color: #38bdf8 !important;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-sky:hover {
+      background: rgba(56, 189, 248, 0.25) !important;
+      border-color: #38bdf8 !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
     }
 
     /* Hover Preview Card on Map Pin */
@@ -1718,6 +1804,288 @@
         font-size: 18px;
       }
     }
+
+    /* =========================================================================
+       3D INTERACTIVE EARTH GLOBE & CLOUD DIVE STYLES
+       Mouse-driven rotatable Earth in space with glowing 3D location beacons
+       ========================================================================= */
+    #earth-globe-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 8;
+      display: none;
+      background: radial-gradient(circle at center, #091224 0%, #030712 70%, #000207 100%);
+      cursor: grab;
+      overflow: hidden;
+    }
+
+    #earth-globe-container.active {
+      display: block;
+    }
+
+    #earth-globe-container:active {
+      cursor: grabbing;
+    }
+
+    #earth-globe-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .earth-globe-hud {
+      position: absolute;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .earth-badge-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(7, 10, 16, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.08em;
+    }
+
+    .earth-hint-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(7, 10, 16, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #e2e8f0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .earth-region-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+      pointer-events: auto;
+      margin-top: 2px;
+      max-width: 92vw;
+    }
+
+    .region-nav-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+
+    .btn-region-pill {
+      background: rgba(10, 15, 26, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #cbd5e1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 11px;
+      border-radius: 14px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-region-pill:hover,
+    .btn-region-pill.active {
+      color: #ffffff;
+      border-color: #38bdf8;
+      background: rgba(14, 165, 233, 0.28);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .pulse-dot-cyan {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+      animation: pulseCyan 1.5s infinite;
+    }
+
+    @keyframes pulseCyan {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+
+    /* Screen-projected Interactive Markers on 3D Earth */
+    #globe-markers-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .globe-marker-pin {
+      position: absolute;
+      pointer-events: auto;
+      cursor: pointer;
+      transform: translate(-50%, -100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    }
+
+    .globe-marker-pin:hover {
+      transform: translate(-50%, -110%) scale(1.15);
+      z-index: 30;
+    }
+
+    .globe-marker-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(7, 10, 16, 0.95);
+      border: 1px solid #38bdf8;
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .globe-marker-badge span:first-child {
+      color: #38bdf8;
+    }
+
+    .globe-marker-stem {
+      width: 2px;
+      height: 20px;
+      background: linear-gradient(to bottom, #38bdf8, rgba(56, 189, 248, 0.2));
+    }
+
+    .globe-marker-ring {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 12px #38bdf8;
+      position: relative;
+    }
+
+    .globe-marker-ring::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56, 189, 248, 0.7);
+      animation: globePinPulse 1.8s infinite ease-out;
+    }
+
+    @keyframes globePinPulse {
+      0% { transform: scale(0.3); opacity: 1; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+
+    /* Cinematic Sky & Clouds Re-entry Dive Overlay */
+    #sky-dive-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 95;
+      display: none;
+      pointer-events: none;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .sky-clouds-backdrop {
+      position: absolute;
+      inset: -20%;
+      background: url('/images/campaigns/sky_clouds_texture_1791015228750.jpg') center center / cover no-repeat;
+      filter: brightness(1.15) contrast(1.08);
+      transform: scale(1.0);
+    }
+
+    .sky-reentry-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 35%, rgba(56, 189, 248, 0.25) 75%, rgba(5, 7, 12, 0.95) 100%);
+      box-shadow: inset 0 0 120px rgba(56, 189, 248, 0.45);
+    }
+
+    .sky-dive-telemetry {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      z-index: 3;
+    }
+
+    .sky-dive-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #38bdf8;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .sky-dive-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+      letter-spacing: -0.02em;
+    }
+
+    .sky-dive-alt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f59e0b;
+      background: rgba(7, 10, 16, 0.9);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      padding: 6px 18px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -1725,6 +2093,55 @@
   <div id="app">
     <!-- Real Geospatial Map Layer (MapLibre GL with Satellite Tiles) -->
     <div id="map"></div>
+
+    <!-- 3D Interactive Earth Globe (Three.js Rotatable Earth with Mouse Drag & 3D Location Markers) -->
+    <div id="earth-globe-container">
+      <canvas id="earth-globe-canvas"></canvas>
+
+      <!-- Earth Overlay Guidance & Interactive Controls -->
+      <div id="earth-globe-hud" class="earth-globe-hud">
+        <div class="earth-badge-pill">
+          <span class="pulse-dot-cyan"></span>
+          <span>🌐 20 GLOBAL LOCATIONS ACTIVE · 360° WORLDWIDE COVERAGE</span>
+        </div>
+        <div class="earth-hint-box">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span>MOUSE SE EARTH GHOOMAYEIN 🌐 · PURI DUNIYA KE LOCATIONS DEKHEIN · KISI BHI PIN PAR CLICK KAR KE SKY SE STREET DIVE KAREIN!</span>
+        </div>
+        <!-- Quick Continents / Regions Jump Nav -->
+        <div class="earth-region-nav" id="earth-region-nav">
+          <span class="region-nav-title">QUICK REGIONS:</span>
+          <button class="btn-region-pill" data-lng="67.07" data-lat="24.86" title="Jump to Karachi, Pakistan">🕌 KARACHI (7)</button>
+          <button class="btn-region-pill" data-lng="55.27" data-lat="25.20" title="Jump to Dubai, UAE">🏙️ DUBAI</button>
+          <button class="btn-region-pill" data-lng="139.70" data-lat="35.66" title="Jump to Tokyo, Japan">🗼 TOKYO</button>
+          <button class="btn-region-pill" data-lng="-0.13" data-lat="51.51" title="Jump to London, UK">🎡 LONDON</button>
+          <button class="btn-region-pill" data-lng="2.30" data-lat="48.87" title="Jump to Paris, France">🏛️ PARIS</button>
+          <button class="btn-region-pill" data-lng="-73.98" data-lat="40.76" title="Jump to New York, USA">🗽 NEW YORK</button>
+          <button class="btn-region-pill" data-lng="-118.33" data-lat="34.09" title="Jump to Los Angeles, USA">🌴 LOS ANGELES</button>
+          <button class="btn-region-pill" data-lng="151.21" data-lat="-33.86" title="Jump to Sydney, Australia">🦘 SYDNEY</button>
+          <button class="btn-region-pill" data-lng="103.86" data-lat="1.28" title="Jump to Singapore">🦁 SINGAPORE</button>
+          <button class="btn-region-pill" data-lng="31.24" data-lat="30.04" title="Jump to Cairo, Egypt">🏺 CAIRO</button>
+        </div>
+      </div>
+
+      <!-- 2D Screen-Projected Interactive Markers on 3D Globe -->
+      <div id="globe-markers-container"></div>
+    </div>
+
+    <!-- Cinematic Sky & Clouds Dive Overlay (Clouds Parting Sky Animation) -->
+    <div id="sky-dive-overlay">
+      <div class="sky-clouds-backdrop" id="sky-clouds-backdrop"></div>
+      <div class="sky-reentry-vignette"></div>
+      <div class="sky-dive-telemetry">
+        <div class="sky-dive-sub">ATMOSPHERIC ENTRY // RE-ENTRY FROM SPACE</div>
+        <div class="sky-dive-title" id="sky-dive-title">DIVING THROUGH CLOUDS TO KARACHI METRO</div>
+        <div class="sky-dive-alt" id="sky-dive-alt">ALTITUDE: 85,000 M</div>
+      </div>
+    </div>
 
     <!-- 360 Panorama View Canvas (Three.js Spherical Panorama) -->
     <div id="panorama-container">
@@ -1765,28 +2182,28 @@
       <div class="intro-card">
         <div class="intro-badge">
           <span class="pulse-dot"></span>
-          <span>ORBITAL RECONNAISSANCE SATELLITE · KARACHI METRO</span>
+          <span>ORBITAL RECONNAISSANCE SATELLITE · 20 GLOBAL LOCATIONS ACTIVE</span>
         </div>
 
         <h1 class="intro-title">AURA <span>VISTA</span></h1>
-        <div class="intro-subtitle">GEOSPATIAL DIGITAL OUT-OF-HOME NETWORK</div>
+        <div class="intro-subtitle">GLOBAL GEOSPATIAL DIGITAL OUT-OF-HOME NETWORK</div>
 
         <div class="intro-telemetry-box">
           <div class="telemetry-line">
             <span class="tele-label">[ORBITAL POSITION]</span>
-            <span class="tele-val">ALTITUDE 120,000M · 24.8615° N, 67.0722° E</span>
+            <span class="tele-val">ALTITUDE 120,000M · 360° WORLDWIDE CONTINENTAL COVERAGE</span>
           </div>
           <div class="telemetry-line">
             <span class="tele-label">[SURVEILLANCE GRID]</span>
-            <span class="tele-val">7 ARTERIAL HIGH-DENSITY HIGHWAY ASSETS</span>
+            <span class="tele-val">20 ICONIC PRIME MEGA BILLBOARDS (KARACHI, DUBAI, TOKYO, NYC, LONDON, PARIS...)</span>
           </div>
           <div class="telemetry-line">
             <span class="tele-label">[AUDIENCE AUDIT]</span>
-            <span class="tele-val">1,015,000+ DAILY VEHICULAR SIGHTLINE AUDIT</span>
+            <span class="tele-val">4,200,000+ DAILY COMMERCIAL & LUXURY SIGHTLINE AUDIT</span>
           </div>
           <div class="telemetry-status">
             <span class="status-indicator"></span>
-            <span id="intro-status-text">OPTICAL SENSORS SYNCHRONIZED · READY FOR FLIGHT DESCENT</span>
+            <span id="intro-status-text">OPTICAL SENSORS SYNCHRONIZED · 20 GLOBAL SITES READY</span>
           </div>
         </div>
 
@@ -1796,9 +2213,13 @@
               <polygon points="5 3 19 12 5 21 5 3"></polygon>
             </svg>
             <div class="btn-launch-text">
-              <span class="launch-main">INITIALIZE CINEMATIC FLIGHT</span>
-              <span class="launch-sub">ORBITAL DESCENT · DYNAMIC AUDIO · 4K REVEAL</span>
+              <span class="launch-main">INITIALIZE 3D EARTH & SKY DIVE</span>
+              <span class="launch-sub">ROTATABLE 3D GLOBE · CLOUD RE-ENTRY · 4K REVEAL</span>
             </div>
+          </button>
+
+          <button class="btn-intro-skip" id="btn-intro-globe" style="border-color: rgba(56, 189, 248, 0.6); color: #38bdf8; background: rgba(56, 189, 248, 0.12);">
+            <span>🌐 OPEN 3D EARTH GLOBE</span>
           </button>
 
           <button class="btn-intro-skip" id="btn-intro-skip">
@@ -1809,15 +2230,15 @@
           </button>
         </div>
       </div>
+    </div>
 
-      <!-- Tactical Reticle Crosshair during descent -->
-      <div class="intro-reticle" id="flight-reticle">
-        <div class="reticle-circle"></div>
-        <div class="reticle-cross-h"></div>
-        <div class="reticle-cross-v"></div>
-        <div class="reticle-label" id="reticle-label">TARGET ACQUISITION // KARACHI METRO</div>
-        <div class="reticle-alt" id="reticle-alt">ALT 120,000M</div>
-      </div>
+    <!-- Tactical Reticle Crosshair during orbital descent & pinpoint location lock -->
+    <div class="intro-reticle" id="flight-reticle">
+      <div class="reticle-circle"></div>
+      <div class="reticle-cross-h"></div>
+      <div class="reticle-cross-v"></div>
+      <div class="reticle-label" id="reticle-label">TARGET ACQUISITION // KARACHI METRO</div>
+      <div class="reticle-alt" id="reticle-alt">ALT 120,000M</div>
     </div>
 
     <!-- Top Bar HUD -->
@@ -1834,6 +2255,16 @@
       </div>
 
       <div class="hud-actions">
+        <!-- 3D Interactive Earth Globe (Mouse se ghoomne wali Earth) -->
+        <button class="hud-btn" id="btn-earth-globe" title="Interactive 3D Earth Globe - Mouse se ghoomayein aur location par click kar ke sky dive karein">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span id="earth-globe-label">🌐 3D EARTH GLOBE</span>
+        </button>
+
         <!-- Cinematic Intro Replay -->
         <button class="hud-btn" id="btn-replay-intro" title="Play Cinematic Orbital Intro Sequence">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2136,6 +2567,15 @@
           </svg>
           <span>BACK TO MAP</span>
         </button>
+
+        <button class="btn-action-sky" id="btn-ascend-globe" title="3D Earth Globe par wapas jayein (Rotate with Mouse in Space)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <span>🌐 3D EARTH GLOBE</span>
+        </button>
       </div>
     </div>
 
@@ -2201,14 +2641,17 @@
     }
 
     // =========================================================================
-    // 1. DATA: 7 REAL BILLBOARD LOCATIONS
-    // Real Geographic GPS Coordinates with comprehensive visibility intelligence
+    // 1. DATA: 20 GLOBAL BILLBOARD LOCATIONS ACROSS THE ENTIRE EARTH
+    // Distributed across all 360° longitudes for instant visibility on 3D Earth
     // =========================================================================
     const BILLBOARDS = [
+      // --- SOUTH ASIA (Karachi Metropolitan Network) ---
       {
         id: 1,
         code: "01",
         name: "Shahrah-e-Faisal Grand Digital",
+        city: "Karachi",
+        region: "South Asia",
         district: "Nursery Junction Arterial Corridor, Karachi",
         coordinates: [67.0722, 24.8615],
         size: "48 × 14 ft",
@@ -2234,6 +2677,8 @@
         id: 2,
         code: "02",
         name: "Clifton Skyline Mega Rooftop",
+        city: "Karachi",
+        region: "South Asia",
         district: "Sea View Promenade & Block 4, Clifton, Karachi",
         coordinates: [67.0315, 24.8210],
         size: "60 × 20 ft",
@@ -2259,6 +2704,8 @@
         id: 3,
         code: "03",
         name: "DHA Commercial Boulevard",
+        city: "Karachi",
+        region: "South Asia",
         district: "Khayaban-e-Shamsheer & Phase VI, DHA, Karachi",
         coordinates: [67.0650, 24.7950],
         size: "40 × 14 ft",
@@ -2283,6 +2730,8 @@
         id: 4,
         code: "04",
         name: "Saddar Downtown Curved Screen",
+        city: "Karachi",
+        region: "South Asia",
         district: "M.A. Jinnah Road & Empress Market Crossroads, Saddar",
         coordinates: [67.0180, 24.8580],
         size: "42 × 16 ft",
@@ -2307,6 +2756,8 @@
         id: 5,
         code: "05",
         name: "Gulshan Expressway Cantilever",
+        city: "Karachi",
+        region: "South Asia",
         district: "University Road Expressway Link, Gulshan-e-Iqbal",
         coordinates: [67.0980, 24.9180],
         size: "50 × 16 ft",
@@ -2331,6 +2782,8 @@
         id: 6,
         code: "06",
         name: "North Nazimabad Broadway",
+        city: "Karachi",
+        region: "South Asia",
         district: "Shahrah-e-Humayun & Block H, North Nazimabad",
         coordinates: [67.0420, 24.9420],
         size: "36 × 14 ft",
@@ -2355,6 +2808,8 @@
         id: 7,
         code: "07",
         name: "PECHS Boulevard Monolith",
+        city: "Karachi",
+        region: "South Asia",
         district: "Shahrah-e-Quaideen & Tariq Road Commercial Zone",
         coordinates: [67.0620, 24.8720],
         size: "32 × 16 ft",
@@ -2373,6 +2828,355 @@
         campaigns: [
           { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" },
           { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" }
+        ]
+      },
+
+      // --- NORTH AMERICA (USA & Canada) ---
+      {
+        id: 8,
+        code: "08",
+        name: "Times Square Iconic Mega Tower",
+        city: "New York",
+        region: "North America",
+        district: "Broadway & 7th Avenue Crossroads, Manhattan, New York, USA",
+        coordinates: [-73.9855, 40.7580],
+        size: "120 × 42 ft",
+        type: "8K Ultra-HDR Curved Spectacular",
+        traffic: "480,000+ Pedestrians & Vehicles / Day",
+        sightline: "650m Direct Line",
+        dwell: "120s Plaza Halt",
+        landmarks: "Times Square / Broadway Theaters",
+        demographics: "94% Global Travelers & Commercial Elite",
+        rate: "$18,500 / Week",
+        bearing: -24,
+        pitch: 62,
+        zoom: 17.5,
+        photo: "/images/campaigns/billboard_times_square.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" },
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" }
+        ]
+      },
+      {
+        id: 9,
+        code: "09",
+        name: "Sunset Boulevard Hollywood Spectacular",
+        city: "Los Angeles",
+        region: "North America",
+        district: "Sunset Strip & West Hollywood Media Corridor, LA, USA",
+        coordinates: [-118.3287, 34.0928],
+        size: "80 × 30 ft",
+        type: "Entertainment Capital Digital Display",
+        traffic: "295,000+ Vehicles / Day",
+        sightline: "540m Boulevard Strip",
+        dwell: "85s Traffic Flow",
+        landmarks: "Hollywood Hills / Sunset Strip",
+        demographics: "91% Media, Entertainment & VIPs",
+        rate: "$16,000 / Week",
+        bearing: 35,
+        pitch: 60,
+        zoom: 17.3,
+        photo: "/images/campaigns/billboard_times_square.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" }
+        ]
+      },
+      {
+        id: 10,
+        code: "10",
+        name: "Toronto Yonge-Dundas Atrium Screen",
+        city: "Toronto",
+        region: "North America",
+        district: "Yonge-Dundas Square Atrium, Downtown Toronto, Canada",
+        coordinates: [-79.3802, 43.6560],
+        size: "75 × 28 ft",
+        type: "Curved Square Spectacular LED",
+        traffic: "230,000+ Daily Transit & Foot",
+        sightline: "410m Square View",
+        dwell: "95s Intersection",
+        landmarks: "Yonge-Dundas Square / CF Toronto Eaton Centre",
+        demographics: "87% Metro Commuters, Tech & Retail",
+        rate: "$12,400 / Week",
+        bearing: 18,
+        pitch: 63,
+        zoom: 17.5,
+        photo: "/images/campaigns/billboard_nazimabad_photo_1790817125037.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" },
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" }
+        ]
+      },
+
+      // --- EUROPE ---
+      {
+        id: 11,
+        code: "11",
+        name: "Piccadilly Circus Curved Super-Screen",
+        city: "London",
+        region: "Europe",
+        district: "Shaftesbury Avenue & West End, London, UK",
+        coordinates: [-0.1342, 51.5101],
+        size: "95 × 34 ft",
+        type: "Curved 4K Ultra-Luminance LED",
+        traffic: "340,000+ Commuters / Day",
+        sightline: "420m Circus View",
+        dwell: "90s Crossroads",
+        landmarks: "Shaftesbury Memorial / Regent Street",
+        demographics: "88% High Net Worth Shoppers & Commuters",
+        rate: "$15,200 / Week",
+        bearing: 25,
+        pitch: 60,
+        zoom: 17.6,
+        photo: "/images/campaigns/billboard_piccadilly.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" },
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" }
+        ]
+      },
+      {
+        id: 12,
+        code: "12",
+        name: "Champs-Élysées Luxury Monolith",
+        city: "Paris",
+        region: "Europe",
+        district: "Avenue des Champs-Élysées Luxury Hub, Paris, France",
+        coordinates: [2.3025, 48.8710],
+        size: "55 × 22 ft",
+        type: "Architectural Couture Digital Screen",
+        traffic: "220,000+ Foot & Auto / Day",
+        sightline: "420m Grand Avenue",
+        dwell: "75s Boulevard Stroll",
+        landmarks: "Arc de Triomphe / Luxury Boutiques",
+        demographics: "90% Luxury Goods Connoisseurs & Travelers",
+        rate: "$13,900 / Week",
+        bearing: -20,
+        pitch: 63,
+        zoom: 17.5,
+        photo: "/images/campaigns/billboard_paris.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" },
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" }
+        ]
+      },
+      {
+        id: 13,
+        code: "13",
+        name: "Alexanderplatz Media Cube",
+        city: "Berlin",
+        region: "Europe",
+        district: "Alexanderplatz Central Plaza, Berlin, Germany",
+        coordinates: [13.4132, 52.5219],
+        size: "62 × 24 ft",
+        type: "Modular Urban Media Screen",
+        traffic: "195,000+ Pedestrians & Commuters",
+        sightline: "390m Open Plaza",
+        dwell: "80s Transit Crossing",
+        landmarks: "Berliner Fernsehturm / Galeria",
+        demographics: "82% European Creative Class & Travelers",
+        rate: "$10,600 / Week",
+        bearing: -15,
+        pitch: 62,
+        zoom: 17.4,
+        photo: "/images/campaigns/billboard_pechs_photo_1790817138208.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" }
+        ]
+      },
+
+      // --- MIDDLE EAST & AFRICA ---
+      {
+        id: 14,
+        code: "14",
+        name: "Sheikh Zayed Road Cyber Monolith",
+        city: "Dubai",
+        region: "Middle East",
+        district: "DIFC & Downtown Highway Corridor, Dubai, UAE",
+        coordinates: [55.2708, 25.2048],
+        size: "75 × 25 ft",
+        type: "Cyber Monolith High-Luminance LED",
+        traffic: "285,000+ Luxury Vehicles / Day",
+        sightline: "520m Highway Corridor",
+        dwell: "60s Expressway Glide",
+        landmarks: "Burj Khalifa Vista / Museum of the Future",
+        demographics: "95% Executive, Luxury & Business Class",
+        rate: "$14,500 / Week",
+        bearing: 40,
+        pitch: 62,
+        zoom: 17.4,
+        photo: "/images/campaigns/billboard_dubai.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" }
+        ]
+      },
+      {
+        id: 15,
+        code: "15",
+        name: "Nile Corniche Grand Digital",
+        city: "Cairo",
+        region: "Africa",
+        district: "Tahrir Waterfront Corridor, Cairo, Egypt",
+        coordinates: [31.2357, 30.0444],
+        size: "58 × 20 ft",
+        type: "Riverfront Illuminated Spectacular",
+        traffic: "210,000+ Vehicles / Day",
+        sightline: "490m Nile Bridge Approach",
+        dwell: "100s River Bridge Signal",
+        landmarks: "Nile River Promenade / Egyptian Museum",
+        demographics: "78% Mass Commuter & Middle Eastern Tourism",
+        rate: "$8,500 / Week",
+        bearing: 20,
+        pitch: 61,
+        zoom: 17.3,
+        photo: "/images/campaigns/billboard_saddar_photo_1790817009967.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "ÉLAN PARFUM", url: "/images/campaigns/ad_perfume_campaign_1790763209311.jpg" },
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" }
+        ]
+      },
+
+      // --- ASIA PACIFIC ---
+      {
+        id: 16,
+        code: "16",
+        name: "Shibuya Crossing 3D Wave Screen",
+        city: "Tokyo",
+        region: "East Asia",
+        district: "Hachiko Plaza & Dogenzaka, Shibuya, Tokyo, Japan",
+        coordinates: [139.7005, 35.6595],
+        size: "88 × 36 ft",
+        type: "Naked-Eye 3D Curved LED",
+        traffic: "520,000+ Pedestrians / Day",
+        sightline: "360m Scramble Crossing",
+        dwell: "110s Scramble Walk",
+        landmarks: "Shibuya 109 / Shibuya Sky Tower",
+        demographics: "92% Tech, Fashion & Global Youth",
+        rate: "$17,800 / Week",
+        bearing: -35,
+        pitch: 65,
+        zoom: 17.6,
+        photo: "/images/campaigns/billboard_shibuya.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" },
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" }
+        ]
+      },
+      {
+        id: 17,
+        code: "17",
+        name: "Marina Bay Sands Holographic Display",
+        city: "Singapore",
+        region: "Southeast Asia",
+        district: "Bayfront Avenue Waterfront Promenade, Singapore",
+        coordinates: [103.8591, 1.2838],
+        size: "70 × 26 ft",
+        type: "Waterfront Architectural Display",
+        traffic: "240,000+ Foot & Vehicle / Day",
+        sightline: "480m Waterfront Sightline",
+        dwell: "90s Promenade Flow",
+        landmarks: "Marina Bay Sands / Gardens by the Bay",
+        demographics: "90% Global Investors & Luxury Shoppers",
+        rate: "$13,400 / Week",
+        bearing: -15,
+        pitch: 64,
+        zoom: 17.5,
+        photo: "/images/campaigns/billboard_faisal_photo_1790816985555.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" },
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" }
+        ]
+      },
+      {
+        id: 18,
+        code: "18",
+        name: "Bandra-Worli Coastal Spectacular",
+        city: "Mumbai",
+        region: "South Asia",
+        district: "Sea Link Coastal Boulevard, Mumbai, India",
+        coordinates: [72.8190, 19.0330],
+        size: "72 × 26 ft",
+        type: "Coastal Highway Digital Gantry",
+        traffic: "275,000+ High-Volume Commuters",
+        sightline: "550m Head-On Sea Link",
+        dwell: "65s Toll & Junction Speed",
+        landmarks: "Bandra-Worli Sea Link / Arabian Sea",
+        demographics: "88% Corporate & HNW Commuters",
+        rate: "$11,500 / Week",
+        bearing: -30,
+        pitch: 64,
+        zoom: 17.4,
+        photo: "/images/campaigns/billboard_dha_photo_1790817101871.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" }
+        ]
+      },
+
+      // --- OCEANIA & SOUTH AMERICA ---
+      {
+        id: 19,
+        code: "19",
+        name: "Sydney Harbour George Street LED",
+        city: "Sydney",
+        region: "Oceania",
+        district: "Circular Quay Commercial Arterial, Sydney, Australia",
+        coordinates: [151.2153, -33.8568],
+        size: "65 × 24 ft",
+        type: "Coastal Panoramic LED",
+        traffic: "190,000+ Vehicles & Pedestrians / Day",
+        sightline: "460m Promenade Sightline",
+        dwell: "80s Quay Signal",
+        landmarks: "Sydney Harbour Bridge / Opera House",
+        demographics: "85% Tourism & Corporate High Earners",
+        rate: "$11,200 / Week",
+        bearing: 30,
+        pitch: 62,
+        zoom: 17.4,
+        photo: "/images/campaigns/billboard_sydney.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        campaigns: [
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" },
+          { name: "NEXUS ACOUSTICS", url: "/images/campaigns/ad_tech_campaign_1790763197344.jpg" }
+        ]
+      },
+      {
+        id: 20,
+        code: "20",
+        name: "Avenida Paulista Panoramic LED",
+        city: "São Paulo",
+        region: "South America",
+        district: "Paulista Cultural & Financial Avenue, São Paulo, Brazil",
+        coordinates: [-46.6559, -23.5615],
+        size: "68 × 24 ft",
+        type: "Metropolitan Financial LED",
+        traffic: "260,000+ Daily Transit & Commuters",
+        sightline: "430m Grand Boulevard",
+        dwell: "90s Signal Halt",
+        landmarks: "MASP Art Museum / Financial Hub",
+        demographics: "83% South American Corporate & Cultural",
+        rate: "$9,800 / Week",
+        bearing: -25,
+        pitch: 62,
+        zoom: 17.4,
+        photo: "/images/campaigns/billboard_clifton_photo_1790816997681.jpg",
+        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        campaigns: [
+          { name: "AURA HAUTE COUTURE", url: "/images/campaigns/ad_fashion_campaign_1790763165729.jpg" },
+          { name: "VOLTIX GT HYPERCAR", url: "/images/campaigns/ad_automotive_campaign_1790763183646.jpg" }
         ]
       }
     ];
@@ -2600,6 +3404,8 @@
         'esri-satellite': {
           type: 'raster',
           tiles: [
+            '/api/tiles/satellite/{z}/{y}/{x}',
+            'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
           ],
           tileSize: 256,
@@ -2648,6 +3454,13 @@
       bearing: -45
     };
 
+    const SKY_ORBIT_VIEW = {
+      center: [67.0500, 24.8600],
+      zoom: 3.2,
+      pitch: 15,
+      bearing: -35
+    };
+
     const OVERVIEW_VIEW = {
       center: [67.0500, 24.8600],
       zoom: 11.8,
@@ -2663,7 +3476,7 @@
     let currentDistance = 'medium';
     let isCinematicIntroActive = true;
 
-    // Initialize MapLibre GL in High Stratosphere Orbit
+    // Initialize MapLibre GL in High Stratosphere Orbit with local proxy & robust fallback
     const map = new maplibregl.Map({
       container: 'map',
       style: SATELLITE_STYLE,
@@ -2672,7 +3485,25 @@
       pitch: STRATOSPHERE_VIEW.pitch,
       bearing: STRATOSPHERE_VIEW.bearing,
       maxPitch: 75,
-      antialias: true
+      antialias: true,
+      transformRequest: (url, resourceType) => {
+        if (resourceType === 'Tile' && url.includes('arcgisonline.com')) {
+          const match = url.match(/\/tile\/(\d+)\/(\d+)\/(\d+)/i);
+          if (match) {
+            return {
+              url: `/api/tiles/satellite/${match[1]}/${match[2]}/${match[3]}`
+            };
+          }
+        }
+        return { url };
+      }
+    });
+
+    // Benign network errors handler to prevent uncaught alerts on intermittent tile drops
+    map.on('error', (e) => {
+      if (e && e.error && (e.error.status === 0 || e.error.message?.includes('fetch') || e.error.message?.includes('AJAXError'))) {
+        return;
+      }
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'bottom-right');
@@ -2733,6 +3564,21 @@
     const adFileInput = document.getElementById('ad-file-input');
 
     const btnBackMap = document.getElementById('btn-back-map');
+    const btnAscendSky = document.getElementById('btn-ascend-sky');
+    const btnAscendGlobe = document.getElementById('btn-ascend-globe');
+    const btnSkyView = document.getElementById('btn-sky-view');
+    const skyViewLabel = document.getElementById('sky-view-label');
+    const btnEarthGlobe = document.getElementById('btn-earth-globe');
+    const btnIntroGlobe = document.getElementById('btn-intro-globe');
+
+    const earthGlobeContainer = document.getElementById('earth-globe-container');
+    const earthGlobeCanvas = document.getElementById('earth-globe-canvas');
+    const globeMarkersContainer = document.getElementById('globe-markers-container');
+    const skyDiveOverlay = document.getElementById('sky-dive-overlay');
+    const skyCloudsBackdrop = document.getElementById('sky-clouds-backdrop');
+    const skyDiveAlt = document.getElementById('sky-dive-alt');
+    const skyDiveTitle = document.getElementById('sky-dive-title');
+
     const btnOpenBooking = document.getElementById('btn-open-booking');
     const bookingModal = document.getElementById('booking-modal');
     const btnCloseBooking = document.getElementById('btn-close-booking');
@@ -2798,25 +3644,48 @@
       });
     }
 
-    // Populate Radar Dots
+    // Populate Radar Dots (adapts to current focus city or global view)
     function setupRadarDots() {
+      if (!radarDotsContainer) return;
       radarDotsContainer.innerHTML = '';
-      const centerLng = 67.0500;
-      const centerLat = 24.8600;
-      const scale = 360;
+      let centerLng = 67.0500;
+      let centerLat = 24.8600;
+
+      if (typeof map !== 'undefined' && map.getCenter) {
+        const c = map.getCenter();
+        if (c) {
+          centerLng = c.lng;
+          centerLat = c.lat;
+        }
+      }
+
+      const zoom = (typeof map !== 'undefined' && map.getZoom) ? map.getZoom() : 11;
+      const isGlobal = zoom <= 5.5;
+      const scale = isGlobal ? 0.38 : 340;
 
       BILLBOARDS.forEach(b => {
+        let dx, dy;
+        if (isGlobal) {
+          dx = (b.coordinates[0] - centerLng) * scale;
+          dy = -(b.coordinates[1] - centerLat) * scale;
+        } else {
+          const dLng = (b.coordinates[0] - centerLng);
+          const dLat = (b.coordinates[1] - centerLat);
+          if (Math.abs(dLng) > 1.8 || Math.abs(dLat) > 1.8) return;
+          dx = dLng * scale;
+          dy = -dLat * scale * 1.1;
+        }
+
+        const x = 76 + dx;
+        const y = 76 + dy;
+
+        const distFromCenter = Math.sqrt((x - 76) * (x - 76) + (y - 76) * (y - 76));
+        if (distFromCenter > 66) return;
+
         const dot = document.createElement('div');
         dot.className = 'radar-dot';
         dot.id = `radar-dot-${b.id}`;
-        dot.title = `${b.code} · ${b.name}`;
-
-        const dx = (b.coordinates[0] - centerLng) * scale;
-        const dy = -(b.coordinates[1] - centerLat) * scale * 1.1;
-
-        const x = Math.max(12, Math.min(140, 76 + dx));
-        const y = Math.max(12, Math.min(140, 76 + dy));
-
+        dot.title = `${b.code} · ${b.name} (${b.city || 'Metro'})`;
         dot.style.left = `${x}px`;
         dot.style.top = `${y}px`;
 
@@ -2841,6 +3710,9 @@
         el.id = `pin-${b.id}`;
 
         el.innerHTML = `
+          <!-- Sky / Orbit Beacon Column (visible from high space/sky) -->
+          <div class="pin-sky-beacon"></div>
+
           <!-- Hover Preview Tooltip Card -->
           <div class="pin-hover-card">
             <img class="hover-card-thumb" src="${b.photo}" alt="${b.name}" onerror="this.onerror=null; this.src='/images/campaigns/billboard_faisal_photo_1790816985555.jpg';" />
@@ -2867,6 +3739,8 @@
         el.addEventListener('click', (e) => {
           e.stopPropagation();
           sound.init();
+          el.classList.add('clicked');
+          setTimeout(() => el.classList.remove('clicked'), 1500);
           selectBillboard(b);
         });
 
@@ -2903,6 +3777,10 @@
         const estAlt = 120000 * Math.pow(0.5, (map.getZoom() - 5.8));
         updateAtmosphericHaze(estAlt);
       }
+    });
+
+    map.on('moveend', () => {
+      setupRadarDots();
     });
 
     // =========================================================================
@@ -3308,6 +4186,451 @@
     initBillboardRippleShader();
 
     // =========================================================================
+    // 5D. INTERACTIVE 3D EARTH GLOBE & SKY CLOUD-DIVE ENGINE (Three.js)
+    // - Rotatable 3D Earth Globe controlled by mouse drag ("earth ghoom bhi mouse se")
+    // - Pinned 3D Locations for Karachi billboard network on the Earth sphere
+    // - Cinematic Sky & Clouds parting animation diving down to street level
+    // =========================================================================
+    let earthScene, earthCamera, earthRenderer, earthGroup;
+    let earthMesh, atmoMesh, haloMesh, starsPoints;
+    let isDraggingEarth = false;
+    let prevMouseX = 0, prevMouseY = 0;
+    let rotVelX = 0, rotVelY = 0;
+    // Initial orientation: Pakistan, Arabian Sea, South Asia facing camera
+    let targetRotY = 0.65;
+    let targetRotX = 0.15;
+    let isEarthGlobeActive = false;
+    let globeMarkers = [];
+    const earthRadius = 125;
+
+    function initEarthGlobe() {
+      if (!earthGlobeCanvas) return;
+
+      earthScene = new THREE.Scene();
+      earthCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 3000);
+      earthCamera.position.set(0, 0, 360);
+
+      earthRenderer = new THREE.WebGLRenderer({ canvas: earthGlobeCanvas, antialias: true, alpha: true });
+      earthRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      earthRenderer.setSize(window.innerWidth, window.innerHeight);
+
+      earthGroup = new THREE.Group();
+      earthScene.add(earthGroup);
+
+      // Deep Space Starfield
+      const starsGeo = new THREE.BufferGeometry();
+      const starCount = 1600;
+      const starPositions = new Float32Array(starCount * 3);
+      for (let i = 0; i < starCount; i++) {
+        const r = 850 + Math.random() * 800;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        starPositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        starPositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        starPositions[i * 3 + 2] = r * Math.cos(phi);
+      }
+      starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+      const starsMat = new THREE.PointsMaterial({
+        size: 1.8,
+        color: 0xc8ddf8,
+        transparent: true,
+        opacity: 0.85
+      });
+      starsPoints = new THREE.Points(starsGeo, starsMat);
+      earthScene.add(starsPoints);
+
+      // Earth Sphere with High-Resolution Satellite Texture
+      const earthGeo = new THREE.SphereGeometry(earthRadius, 64, 64);
+      const earthTexture = textureLoader.load('/images/campaigns/earth_globe_texture_1791015246296.jpg');
+      earthTexture.colorSpace = THREE.SRGBColorSpace;
+      const earthMat = new THREE.MeshStandardMaterial({
+        map: earthTexture,
+        roughness: 0.65,
+        metalness: 0.08
+      });
+      earthMesh = new THREE.Mesh(earthGeo, earthMat);
+      earthGroup.add(earthMesh);
+
+      // Atmosphere Inner Translucent Glow
+      const atmoGeo = new THREE.SphereGeometry(earthRadius * 1.018, 48, 48);
+      const atmoMat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.16,
+        blending: THREE.AdditiveBlending
+      });
+      atmoMesh = new THREE.Mesh(atmoGeo, atmoMat);
+      earthGroup.add(atmoMesh);
+
+      // Atmosphere Outer Halo in Deep Space
+      const haloGeo = new THREE.SphereGeometry(earthRadius * 1.06, 48, 48);
+      const haloMat = new THREE.MeshBasicMaterial({
+        color: 0x0284c7,
+        transparent: true,
+        opacity: 0.12,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending
+      });
+      haloMesh = new THREE.Mesh(haloGeo, haloMat);
+      earthGroup.add(haloMesh);
+
+      // Natural Solar Lighting
+      const ambientLight = new THREE.AmbientLight(0x7788aa, 1.4);
+      earthScene.add(ambientLight);
+
+      const sunLight = new THREE.DirectionalLight(0xffffff, 2.6);
+      sunLight.position.set(450, 220, 320);
+      earthScene.add(sunLight);
+
+      // Setup 3D Location Markers on Earth
+      setupGlobeMarkers();
+
+      // Mouse drag rotation controls
+      earthGlobeContainer.addEventListener('pointerdown', onEarthPointerDown);
+      window.addEventListener('pointermove', onEarthPointerMove);
+      window.addEventListener('pointerup', onEarthPointerUp);
+      earthGlobeContainer.addEventListener('wheel', onEarthWheel, { passive: false });
+      window.addEventListener('resize', onEarthResize);
+
+      animateEarthGlobe();
+    }
+
+    function setupGlobeMarkers() {
+      globeMarkersContainer.innerHTML = '';
+      globeMarkers.length = 0;
+
+      BILLBOARDS.forEach(b => {
+        const [lng, lat] = b.coordinates;
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lng + 180) * (Math.PI / 180);
+        const pos = new THREE.Vector3(
+          -(earthRadius * Math.sin(phi) * Math.cos(theta)),
+          earthRadius * Math.cos(phi),
+          earthRadius * Math.sin(phi) * Math.sin(theta)
+        );
+
+        // 3D pin group attached to rotating Earth
+        const pinGroup = new THREE.Group();
+        pinGroup.position.copy(pos);
+        pinGroup.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), pos.clone().normalize());
+
+        // Surface base dot
+        const dotGeo = new THREE.SphereGeometry(1.8, 12, 12);
+        const dotMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+        const dotMesh = new THREE.Mesh(dotGeo, dotMat);
+        pinGroup.add(dotMesh);
+
+        // Pulsing radar ground disc
+        const ringGeo = new THREE.RingGeometry(1.6, 3.4, 16);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: 0x38bdf8,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.65
+        });
+        const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+        ringMesh.rotation.x = Math.PI / 2;
+        pinGroup.add(ringMesh);
+
+        // Laser beam pointing into deep space
+        const beamGeo = new THREE.CylinderGeometry(0.35, 1.1, 28, 8);
+        beamGeo.translate(0, 14, 0);
+        const isGold = b.id % 2 === 1;
+        const beamMat = new THREE.MeshBasicMaterial({
+          color: isGold ? 0xf59e0b : 0x38bdf8,
+          transparent: true,
+          opacity: 0.85
+        });
+        const beamMesh = new THREE.Mesh(beamGeo, beamMat);
+        pinGroup.add(beamMesh);
+
+        // Glowing apex beacon tip
+        const tipGeo = new THREE.SphereGeometry(1.3, 10, 10);
+        const tipMat = new THREE.MeshBasicMaterial({
+          color: isGold ? 0xfde68a : 0xbae6fd
+        });
+        const tipMesh = new THREE.Mesh(tipGeo, tipMat);
+        tipMesh.position.set(0, 28, 0);
+        pinGroup.add(tipMesh);
+
+        earthGroup.add(pinGroup);
+
+        // HTML Screen-projected Interactive Badge
+        const tag = document.createElement('div');
+        tag.className = 'globe-marker-pin';
+        tag.id = `globe-pin-${b.id}`;
+        tag.innerHTML = `
+          <div class="globe-marker-badge">
+            <span class="marker-code">SITE ${b.code}</span>
+            <span class="marker-city">${(b.city || b.name.split(' ')[0]).toUpperCase()}</span>
+          </div>
+          <div class="globe-marker-stem"></div>
+          <div class="globe-marker-ring"></div>
+        `;
+
+        tag.addEventListener('click', (e) => {
+          e.stopPropagation();
+          sound.init();
+          diveFromEarthGlobeToLocation(b);
+        });
+
+        globeMarkersContainer.appendChild(tag);
+
+        globeMarkers.push({
+          billboard: b,
+          position: pos,
+          tag
+        });
+      });
+
+      // Update projection immediately so pins are instantly positioned
+      updateGlobeMarkersProjection();
+    }
+
+    function onEarthPointerDown(e) {
+      isDraggingEarth = true;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+      rotVelX = 0;
+      rotVelY = 0;
+      earthGlobeContainer.style.cursor = 'grabbing';
+    }
+
+    function onEarthPointerMove(e) {
+      if (!isDraggingEarth) return;
+      const dx = e.clientX - prevMouseX;
+      const dy = e.clientY - prevMouseY;
+      prevMouseX = e.clientX;
+      prevMouseY = e.clientY;
+
+      rotVelY = dx * 0.0055;
+      rotVelX = dy * 0.0055;
+
+      targetRotY += rotVelY;
+      targetRotX += rotVelX;
+      targetRotX = Math.max(-1.15, Math.min(1.15, targetRotX));
+    }
+
+    function onEarthPointerUp() {
+      if (isDraggingEarth) {
+        isDraggingEarth = false;
+        earthGlobeContainer.style.cursor = 'grab';
+      }
+    }
+
+    function onEarthWheel(e) {
+      e.preventDefault();
+      earthCamera.position.z += e.deltaY * 0.22;
+      earthCamera.position.z = Math.max(165, Math.min(480, earthCamera.position.z));
+    }
+
+    function onEarthResize() {
+      if (!earthCamera || !earthRenderer) return;
+      earthCamera.aspect = window.innerWidth / window.innerHeight;
+      earthCamera.updateProjectionMatrix();
+      earthRenderer.setSize(window.innerWidth, window.innerHeight);
+      updateGlobeMarkersProjection();
+    }
+
+    // Projects all 3D location pins onto 2D screen instantly
+    function updateGlobeMarkersProjection() {
+      if (!isEarthGlobeActive || globeMarkers.length === 0 || !earthCamera) return;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const tempV = new THREE.Vector3();
+      const camPos = earthCamera.position;
+
+      globeMarkers.forEach(m => {
+        tempV.copy(m.position).applyMatrix4(earthGroup.matrixWorld);
+
+        // Dot product relative to camera vector (shows pins as soon as they peak over horizon)
+        const dot = tempV.clone().normalize().dot(camPos.clone().normalize());
+        if (dot > -0.05) {
+          tempV.project(earthCamera);
+          const x = (tempV.x * 0.5 + 0.5) * width;
+          const y = (-tempV.y * 0.5 + 0.5) * height;
+
+          const scale = Math.max(0.65, Math.min(1.15, 0.72 + dot * 0.42));
+          const opacity = Math.max(0.35, Math.min(1.0, (dot + 0.08) * 1.8));
+
+          m.tag.style.transform = `translate(-50%, -100%) scale(${scale})`;
+          m.tag.style.left = `${x}px`;
+          m.tag.style.top = `${y}px`;
+          m.tag.style.opacity = opacity.toFixed(2);
+          m.tag.style.pointerEvents = dot > 0.06 ? 'auto' : 'none';
+        } else {
+          m.tag.style.opacity = '0';
+          m.tag.style.pointerEvents = 'none';
+        }
+      });
+    }
+
+    function animateEarthGlobe() {
+      requestAnimationFrame(animateEarthGlobe);
+
+      if (!isDraggingEarth) {
+        // Smooth continuous auto-rotation
+        targetRotY += 0.0012;
+        rotVelX *= 0.92;
+        rotVelY *= 0.92;
+        targetRotX += rotVelX;
+        targetRotY += rotVelY;
+        targetRotX = Math.max(-1.15, Math.min(1.15, targetRotX));
+      }
+
+      earthGroup.rotation.y += (targetRotY - earthGroup.rotation.y) * 0.09;
+      earthGroup.rotation.x += (targetRotX - earthGroup.rotation.x) * 0.09;
+
+      if (starsPoints) {
+        starsPoints.rotation.y -= 0.00015;
+      }
+
+      updateGlobeMarkersProjection();
+
+      if (isEarthGlobeActive) {
+        earthRenderer.render(earthScene, earthCamera);
+      }
+    }
+
+    // Smoothly rotates Earth to center specific longitude & latitude
+    function rotateGlobeToCoordinates(lng, lat, duration = 1.1) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180) * (Math.PI / 180);
+      const newRotY = -(theta - Math.PI / 2);
+      const newRotX = -(Math.PI / 2 - phi);
+
+      rotVelX = 0;
+      rotVelY = 0;
+
+      gsap.to({ y: targetRotY, x: targetRotX }, {
+        y: newRotY,
+        x: newRotX,
+        duration: duration,
+        ease: 'power2.out',
+        onUpdate: function() {
+          targetRotY = this.targets()[0].y;
+          targetRotX = this.targets()[0].x;
+        }
+      });
+    }
+
+    // Open Interactive 3D Earth Globe
+    function openEarthGlobeMode() {
+      sound.init();
+      sound.playWhoosh(2.4);
+
+      if (mediaPanel.classList.contains('active')) {
+        mediaPanel.classList.remove('active');
+        billboardVideo.pause();
+      }
+
+      selectedBillboard = null;
+      isEarthGlobeActive = true;
+      earthGlobeContainer.classList.add('active');
+      btnEarthGlobe.classList.add('active');
+      if (btnSkyView) btnSkyView.classList.remove('active');
+
+      telemetryMode.textContent = 'INTERACTIVE 3D EARTH GLOBE // 20 GLOBAL SITES READY';
+      guidanceBar.style.opacity = '1';
+      guidanceBar.innerHTML = '<span>🌐 3D EARTH: MOUSE SE GHOOMAYEIN · PURI DUNIYA KE LOCATIONS ACTIVE · CLICK ANY PIN TO DIVE FROM SKY!</span>';
+
+      onEarthResize();
+      updateGlobeMarkersProjection();
+      gsap.to(earthCamera.position, { z: 350, duration: 1.4, ease: 'power2.out' });
+    }
+
+    // Setup Quick Region Pills Nav
+    document.querySelectorAll('.btn-region-pill').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sound.init();
+        sound.playTick();
+
+        const lng = parseFloat(btn.dataset.lng);
+        const lat = parseFloat(btn.dataset.lat);
+
+        document.querySelectorAll('.btn-region-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        rotateGlobeToCoordinates(lng, lat, 1.15);
+      });
+    });
+
+    // Cinematic Sky & Cloud Dive from Earth Globe to Ground Location
+    function diveFromEarthGlobeToLocation(b) {
+      sound.playRadarLock();
+      sound.playWhoosh(3.8);
+
+      // Center selected location on the Earth globe
+      const [lng, lat] = b.coordinates;
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180) * (Math.PI / 180);
+      targetRotY = -(theta - Math.PI / 2);
+      targetRotX = -(Math.PI / 2 - phi);
+
+      // Camera zooms rapidly towards Earth surface
+      gsap.to(earthCamera.position, {
+        z: 135,
+        duration: 2.0,
+        ease: 'power2.in'
+      });
+
+      // Show Cinematic Sky & Clouds Layer
+      skyDiveOverlay.style.display = 'block';
+      const cityName = b.city ? b.city.toUpperCase() : 'METRO';
+      skyDiveTitle.textContent = `DIVING THROUGH SKY // SITE ${b.code} · ${cityName} · ${b.name.toUpperCase()}`;
+
+      gsap.fromTo(skyDiveOverlay,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.45, ease: 'power2.in' }
+      );
+
+      gsap.fromTo(skyCloudsBackdrop,
+        { scale: 1.0 },
+        { scale: 1.75, duration: 2.6, ease: 'power1.in' }
+      );
+
+      // Altitude countdown
+      let altObj = { alt: 140000 };
+      gsap.to(altObj, {
+        alt: 65,
+        duration: 2.5,
+        ease: 'power2.out',
+        onUpdate: () => {
+          const val = Math.round(altObj.alt).toLocaleString();
+          skyDiveAlt.textContent = `ALTITUDE: ${val} M`;
+        }
+      });
+
+      // Break through clouds onto MapLibre satellite street map
+      setTimeout(() => {
+        earthGlobeContainer.classList.remove('active');
+        isEarthGlobeActive = false;
+        btnEarthGlobe.classList.remove('active');
+
+        // Cloud-break optical flash
+        gsap.fromTo(flash,
+          { opacity: 0.65 },
+          { opacity: 0, duration: 0.7, ease: 'power2.out' }
+        );
+
+        gsap.to(skyDiveOverlay, {
+          opacity: 0,
+          duration: 0.5,
+          onComplete: () => {
+            skyDiveOverlay.style.display = 'none';
+          }
+        });
+
+        // Land on billboard
+        selectBillboard(b);
+      }, 2100);
+    }
+
+    initEarthGlobe();
+
+    // =========================================================================
     // 6. CINEMATIC FLIGHT INTRO & ORBITAL DESCENT ENGINE
     // =========================================================================
     let timecodeSeconds = 0;
@@ -3510,6 +4833,15 @@
       });
     }
 
+    if (btnIntroGlobe) {
+      btnIntroGlobe.addEventListener('click', () => {
+        sound.init();
+        if (cinematicIntro) cinematicIntro.classList.add('hidden');
+        isCinematicIntroActive = false;
+        openEarthGlobeMode();
+      });
+    }
+
     if (btnIntroSkip) {
       btnIntroSkip.addEventListener('click', () => {
         skipIntroToMap();
@@ -3664,6 +4996,9 @@
       currentAtmosphere = 'day';
       currentDistance = 'medium';
 
+      if (btnSkyView) btnSkyView.classList.remove('active');
+      document.body.classList.remove('orbit-view-active');
+
       // Update radar & filmstrip active state
       document.querySelectorAll('.radar-dot').forEach(d => d.classList.remove('active'));
       const activeDot = document.getElementById(`radar-dot-${b.id}`);
@@ -3676,17 +5011,47 @@
         activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
 
-      telemetryMode.textContent = `CAMERA DESCENT // ${b.name.toUpperCase()}`;
+      // Check where camera is flying from (sky/orbit or ground/overview)
+      const currentZoom = map.getZoom();
+      const isFromSky = currentZoom <= 6.5;
+      const initialAltitude = isFromSky ? 250000 : (currentZoom <= 12 ? 15000 : 2500);
+      const flightDuration = isFromSky ? 3800 : 3000;
+
+      telemetryMode.textContent = isFromSky
+        ? `SKY-TO-EARTH DIVE // ${b.code} · ${b.name.toUpperCase()}`
+        : `CAMERA DESCENT // ${b.name.toUpperCase()}`;
       guidanceBar.style.opacity = '0';
 
-      sound.playWhoosh(3.2);
+      sound.playRadarLock();
+      sound.playWhoosh(flightDuration / 1000);
 
-      let descentAlt = { alt: 1800 };
+      // Trigger Tactical Targeting Reticle on the screen during descent
+      if (flightReticle) {
+        flightReticle.style.display = 'flex';
+        flightReticle.style.zIndex = '120';
+        if (reticleLabel) {
+          reticleLabel.textContent = `TARGET LOCK // SITE ${b.code} · ${b.name.toUpperCase()}`;
+        }
+        if (reticleAlt) {
+          reticleAlt.textContent = `ALT ${initialAltitude.toLocaleString()}M`;
+        }
+        gsap.fromTo(flightReticle,
+          { opacity: 0, scale: 1.4 },
+          { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' }
+        );
+      }
+
+      let descentAlt = { alt: initialAltitude };
       gsap.to(descentAlt, {
-        alt: 80,
-        duration: 3.2,
+        alt: 65,
+        duration: flightDuration / 1000,
         ease: 'power2.out',
-        onUpdate: () => updateAtmosphericHaze(descentAlt.alt)
+        onUpdate: () => {
+          const formatted = Math.round(descentAlt.alt).toLocaleString();
+          if (reticleAlt) reticleAlt.textContent = `ALT ${formatted}M`;
+          if (letterboxAltitude) letterboxAltitude.textContent = `ALT: ${formatted}M`;
+          updateAtmosphericHaze(descentAlt.alt);
+        }
       });
 
       map.flyTo({
@@ -3694,9 +5059,9 @@
         zoom: b.zoom || 17.5,
         pitch: b.pitch || 62,
         bearing: b.bearing || -20,
-        speed: 0.9,
-        curve: 1.42,
-        duration: 3200,
+        speed: isFromSky ? 1.05 : 0.9,
+        curve: isFromSky ? 1.6 : 1.42,
+        duration: flightDuration,
         essential: true
       });
 
@@ -3704,9 +5069,20 @@
         sound.playArrival();
 
         gsap.fromTo(flash,
-          { opacity: 0.35 },
-          { opacity: 0, duration: 0.5, ease: 'power2.out' }
+          { opacity: 0.4 },
+          { opacity: 0, duration: 0.6, ease: 'power2.out' }
         );
+
+        if (flightReticle) {
+          gsap.to(flightReticle, {
+            opacity: 0,
+            scale: 0.85,
+            duration: 0.4,
+            onComplete: () => {
+              flightReticle.style.display = 'none';
+            }
+          });
+        }
 
         // Populate billboard details
         panelTag.textContent = `${b.code} // ${b.type.toUpperCase()}`;
@@ -3737,7 +5113,7 @@
         mediaPanel.classList.add('active');
         setTimeout(() => updateRippleDimensions(), 100);
         telemetryMode.textContent = `SITE ${b.code} // ${b.name.toUpperCase()}`;
-      }, 3100);
+      }, flightDuration - 150);
     }
 
     // Step between locations with Previous / Next buttons
@@ -3898,23 +5274,35 @@
     });
 
     // =========================================================================
-    // 10. BACK TO SATELLITE MAP
+    // 10. BACK TO SATELLITE MAP & SKY ORBIT VIEW
     // =========================================================================
     function returnToMap() {
-      if (!selectedBillboard) return;
+      if (earthGlobeContainer && earthGlobeContainer.classList.contains('active')) {
+        earthGlobeContainer.classList.remove('active');
+        isEarthGlobeActive = false;
+        if (btnEarthGlobe) btnEarthGlobe.classList.remove('active');
+      }
+      if (skyDiveOverlay) {
+        skyDiveOverlay.style.display = 'none';
+      }
 
-      mediaPanel.classList.remove('active');
+      if (!selectedBillboard && map.getZoom() > 6) return;
+
+      if (mediaPanel) mediaPanel.classList.remove('active');
       setBillboardRippleMode(false);
       panoramaContainer.style.display = 'none';
       panoramaHud.style.display = 'none';
       billboardVideo.pause();
 
+      if (btnSkyView) btnSkyView.classList.remove('active');
+      document.body.classList.remove('orbit-view-active');
+
       document.querySelectorAll('.radar-dot').forEach(d => d.classList.remove('active'));
       document.querySelectorAll('.site-card').forEach(c => c.classList.remove('active'));
 
-      telemetryMode.textContent = 'ASCENDING TO SATELLITE BIRD\'S-EYE';
+      telemetryMode.textContent = 'ASCENDING TO METRO BIRD\'S-EYE';
 
-      let ascendAlt = { alt: 80 };
+      let ascendAlt = { alt: map.getZoom() > 14 ? 80 : 250000 };
       gsap.to(ascendAlt, {
         alt: 1800,
         duration: 2.6,
@@ -3938,10 +5326,93 @@
         activeTab = 'photo';
         telemetryMode.textContent = isSatellite ? 'REAL SATELLITE NETWORK' : 'DARK METRO NETWORK';
         guidanceBar.style.opacity = '1';
+        guidanceBar.innerHTML = '<span>CLICK ANY PIN OR BOTTOM CARD TO FLY & VIEW BILLBOARD IN 3D</span>';
       }, 2600);
     }
 
+    function goToSkyOrbitView() {
+      sound.init();
+      sound.playWhoosh(2.8);
+
+      if (earthGlobeContainer && earthGlobeContainer.classList.contains('active')) {
+        earthGlobeContainer.classList.remove('active');
+        isEarthGlobeActive = false;
+        if (btnEarthGlobe) btnEarthGlobe.classList.remove('active');
+      }
+
+      if (mediaPanel.classList.contains('active')) {
+        mediaPanel.classList.remove('active');
+        billboardVideo.pause();
+      }
+      setBillboardRippleMode(false);
+      panoramaContainer.style.display = 'none';
+      panoramaHud.style.display = 'none';
+
+      selectedBillboard = null;
+      document.body.classList.add('orbit-view-active');
+      if (btnSkyView) btnSkyView.classList.add('active');
+
+      document.querySelectorAll('.radar-dot').forEach(d => d.classList.remove('active'));
+      document.querySelectorAll('.site-card').forEach(c => c.classList.remove('active'));
+
+      telemetryMode.textContent = 'HIGH ORBIT // ALTITUDE 250,000M // 7 BEACONS ACTIVE';
+
+      let currentAlt = map.getZoom() > 14 ? 80 : 1800;
+      let ascendAlt = { alt: currentAlt };
+      gsap.to(ascendAlt, {
+        alt: 250000,
+        duration: 2.8,
+        ease: 'power2.out',
+        onUpdate: () => {
+          const formatted = Math.round(ascendAlt.alt).toLocaleString();
+          if (reticleAlt) reticleAlt.textContent = `ALT ${formatted}M`;
+          if (letterboxAltitude) letterboxAltitude.textContent = `ALT: ${formatted}M`;
+          updateAtmosphericHaze(ascendAlt.alt);
+        }
+      });
+
+      map.flyTo({
+        center: SKY_ORBIT_VIEW.center,
+        zoom: SKY_ORBIT_VIEW.zoom,
+        pitch: SKY_ORBIT_VIEW.pitch,
+        bearing: SKY_ORBIT_VIEW.bearing,
+        speed: 0.9,
+        curve: 1.45,
+        duration: 2800,
+        essential: true
+      });
+
+      guidanceBar.style.opacity = '1';
+      guidanceBar.innerHTML = '<span>🚀 HIGH ORBIT VIEW: CLICK ANY LOCATION PIN ON EARTH TO DIVE FROM SKY WITH 3D ANIMATION!</span>';
+    }
+
     btnBackMap.addEventListener('click', returnToMap);
+    if (btnAscendSky) {
+      btnAscendSky.addEventListener('click', goToSkyOrbitView);
+    }
+    if (btnAscendGlobe) {
+      btnAscendGlobe.addEventListener('click', () => {
+        openEarthGlobeMode();
+      });
+    }
+    if (btnEarthGlobe) {
+      btnEarthGlobe.addEventListener('click', () => {
+        if (isEarthGlobeActive) {
+          returnToMap();
+        } else {
+          openEarthGlobeMode();
+        }
+      });
+    }
+    if (btnSkyView) {
+      btnSkyView.addEventListener('click', () => {
+        if (map.getZoom() <= 5.0) {
+          returnToMap();
+        } else {
+          goToSkyOrbitView();
+        }
+      });
+    }
 
     // =========================================================================
     // 11. MAP STYLE TOGGLE, DRAWER & SOUND CONTROLS

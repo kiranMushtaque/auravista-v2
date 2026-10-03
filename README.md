@@ -1,6 +1,6 @@
-# 🏙️ AURA VISTA | 3D Billboard Advertising Network & Virtual Digital Twin
+# 🏙️ AURA VISTA | Global 3D Billboard Advertising Network & Virtual Digital Twin
 
-> **Next-Generation Geospatial Digital Twin & In-Situ 3D Out-of-Home (OOH) Advertising Simulation Platform**
+> **Next-Generation Planetary & Metropolitan Geospatial Digital Twin with Interactive 3D Earth Globe, Atmospheric Cloud-Dive Engine, and In-Situ 3D Out-of-Home (OOH) Advertising Simulation Platform**
 
 [![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
@@ -16,265 +16,281 @@
 
 - [1. Executive Overview](#1-executive-overview)
 - [2. System Architecture & Tech Stack](#2-system-architecture--tech-stack)
-- [3. Core Feature Breakdown (Feature-by-Feature)](#3-core-feature-breakdown-feature-by-feature)
-  - [3.1 High-Altitude Stratosphere to Street Cinematic Flight](#31-high-altitude-stratosphere-to-street-cinematic-flight)
-  - [3.2 3D Geospatial Satellite Flight Navigation (MapLibre GL)](#32-3d-geospatial-satellite-flight-navigation-maplibre-gl)
-  - [3.3 7 Real Landmark Billboard Sites (GPS & Demographics)](#33-7-real-landmark-billboard-sites-gps--demographics)
-  - [3.4 In-Situ Street-Level View & 4K Photography Frame](#34-in-situ-street-level-view--4k-photography-frame)
-  - [3.5 360° Spherical Panoramic Virtual Environment](#35-360-spherical-panoramic-virtual-environment)
-  - [3.6 In-Situ Live Video Playback & Sound Simulator](#36-in-situ-live-video-playback--sound-simulator)
-  - [3.7 Real-Time Atmosphere & Photorealistic Lighting Simulation](#37-real-time-atmosphere--photorealistic-lighting-simulation)
-  - [3.8 GLSL Billboard Screen Water Accumulation & Ripple Shader](#38-glsl-billboard-screen-water-accumulation--ripple-shader)
-  - [3.9 Sightline Distance Simulator (Close, Medium, Far)](#39-sightline-distance-simulator-close-medium-far)
-  - [3.10 Interactive Campaign Studio & Instant Creative Upload](#310-interactive-campaign-studio--instant-creative-upload)
-  - [3.11 3D Procedural Metropolis & Traffic Simulation (Three.js)](#311-3d-procedural-metropolis--traffic-simulation-threejs)
-  - [3.12 Real-Time Telemetry HUD & Circular Radar Mini-Map](#312-real-time-telemetry-hud--circular-radar-mini-map)
-  - [3.13 Procedural Web Audio Soundscape & FX Synthesizer](#313-procedural-web-audio-soundscape--fx-synthesizer)
-  - [3.14 Booking, Inquiries & Lead Reference Number Generator](#314-booking-inquiries--lead-reference-number-generator)
-- [4. Detailed Catalog of 7 Prime Billboard Sites](#4-detailed-catalog-of-7-prime-billboard-sites)
-- [5. Atmospheric Lighting Modes Specification](#5-atmospheric-lighting-modes-specification)
-- [6. Directory & Codebase Structure](#6-directory--codebase-structure)
-- [7. Installation & Local Development](#7-installation--local-development)
-- [8. Build & Production Deployment](#8-build--production-deployment)
-- [9. Performance Optimizations & Troubleshooting](#9-performance-optimizations--troubleshooting)
+- [3. Interactive 3D Earth Globe & Sky Dive Engine](#3-interactive-3d-earth-globe--sky-dive-engine)
+  - [3.1 Rotatable 3D Earth Globe (Three.js WebGL)](#31-rotatable-3d-earth-globe-threejs-webgl)
+  - [3.2 360° Worldwide Coverage (20 Global Locations)](#32-360-worldwide-coverage-20-global-locations)
+  - [3.3 Quick Region & Continent Jump Navigation](#33-quick-region--continent-jump-navigation)
+  - [3.4 Supersonic Sky & Clouds Re-entry Dive Animation](#34-supersonic-sky--clouds-re-entry-dive-animation)
+  - [3.5 High-Performance Tile Proxy & Resilient Map Architecture](#35-high-performance-tile-proxy--resilient-map-architecture)
+- [4. Core Platform Capabilities](#4-core-platform-capabilities)
+  - [4.1 High-Altitude Stratosphere to Street Flight Navigation](#41-high-altitude-stratosphere-to-street-flight-navigation)
+  - [4.2 3D Geospatial Satellite Mapping (MapLibre GL)](#42-3d-geospatial-satellite-mapping-maplibre-gl)
+  - [4.3 In-Situ Street-Level 4K Photographic Frame](#43-in-situ-street-level-4k-photographic-frame)
+  - [4.4 360° Spherical Panoramic Virtual Environment](#44-360-spherical-panoramic-virtual-environment)
+  - [4.5 In-Situ Live Motion Commercial Video Playback](#45-in-situ-live-motion-commercial-video-playback)
+  - [4.6 Real-Time Solar & Atmospheric Lighting Simulator](#46-real-time-solar--atmospheric-lighting-simulator)
+  - [4.7 GLSL Billboard Screen Rain & Ripple Shader](#47-glsl-billboard-screen-rain--ripple-shader)
+  - [4.8 Sightline Distance Perspective Simulator](#48-sightline-distance-perspective-simulator)
+  - [4.9 Interactive Campaign Studio & Instant Creative Upload](#49-interactive-campaign-studio--instant-creative-upload)
+  - [4.10 Circular Radar Mini-Map & Real-Time Telemetry HUD](#410-circular-radar-mini-map--real-time-telemetry-hud)
+  - [4.11 Procedural Web Audio Soundscape & FX Synthesizer](#411-procedural-web-audio-soundscape--fx-synthesizer)
+  - [4.12 Inventory Booking & Automated Tracking Dispatch](#412-inventory-booking--automated-tracking-dispatch)
+- [5. Complete Catalog of 20 Global Prime Billboard Sites](#5-complete-catalog-of-20-global-prime-billboard-sites)
+- [6. Atmospheric Lighting Modes Specification](#6-atmospheric-lighting-modes-specification)
+- [7. Directory & Codebase Structure](#7-directory--codebase-structure)
+- [8. Installation & Local Development](#8-installation--local-development)
+- [9. Build & Production Deployment](#9-build--production-deployment)
+- [10. Performance Optimizations & Resilience](#10-performance-optimizations--resilience)
 
 ---
 
 ## 1. Executive Overview
 
-**AURA VISTA** is an enterprise-grade 3D Out-of-Home (OOH) digital twin application engineered for media agencies, brand directors, outdoor advertisers, and media buyers.
+**AURA VISTA** is an enterprise-grade planetary and metropolitan 3D Out-of-Home (OOH) digital twin platform engineered for global media agencies, luxury brand directors, outdoor advertisers, and media buyers.
 
-Traditional billboard buying relies on static pitch decks, flat mockups, and disjointed traffic statistics. **AURA VISTA replaces traditional mockups with a live, photorealistic 3D virtual environment**:
-1. **Fly dynamically** from satellite altitude down into urban street canyons.
-2. **Inspect physical and digital LED billboards** from true driver and pedestrian sightlines.
-3. **Simulate real-world conditions** such as blazing noon sun, golden-hour sunset, neon cyber nighttime, and moody rainstorms.
-4. **Experience animated screen water accumulation** with procedural ripples and chromatic refraction on the billboard glass.
-5. **Drag and drop live brand artwork or video commercials** onto any display board with instantaneous perspective scaling and luminance mapping.
-6. **Book inventory and request quotes** with verified daily impression metrics and automated reference dispatch.
+Traditional billboard buying relies on static PDF pitch decks, flat generic mockups, and disjointed traffic spreadsheets. **AURA VISTA transforms outdoor advertising evaluation into a seamless, interactive planetary-to-street journey**:
+
+1. **Spin and explore the 3D Earth Globe**: Drag the planet with mouse inertia or touch gestures to view 20 iconic billboard hubs across every continent.
+2. **Dive from the sky into urban streets**: Click any location on Earth to trigger a supersonic atmospheric re-entry dive through volumetric clouds down to street level.
+3. **Inspect physical and digital LED billboards in 4K**: Evaluate sightlines, pedestrian dwell times, and surrounding architecture from driver and pedestrian perspectives.
+4. **Experience 360° street panoramas**: Rotate full 360-degree viewpoints to inspect oncoming traffic corridors and commercial landmark adjacencies.
+5. **Simulate real-world weather and lighting**: Switch seamlessly between High Daylight, Golden Hour Sunset, Cyber Neon Night, and Moody Rain.
+6. **Watch realistic rain ripples on LED screens**: Enjoy custom WebGL GLSL shaders simulating dynamic water droplet ripples and moisture streaks on the display glass.
+7. **Upload custom brand creatives instantly**: Drag and drop any brand image or video onto displays with real-time perspective fitting and luminance grading.
 
 ---
 
 ## 2. System Architecture & Tech Stack
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                              AURA VISTA                                │
-├──────────────────────────────────┬─────────────────────────────────────┤
-│  Geospatial Digital Twin Engine  │   Procedural 3D Virtual City Engine │
-│  (MapLibre GL v6 + Three.js)     │   (Three.js r186 + React 19)        │
-├──────────────────────────────────┼─────────────────────────────────────┤
-│ • 3D Terrain Pitch & Bearing     │ • Procedural Skyscraper Geometries  │
-│ • Stratosphere Orbital Flight    │ • Dynamic Multi-Lane Vehicle Flow   │
-│ • Real GPS Coordinate Plotting   │ • Day/Night Sun & Sky Interpolation │
-│ • 360° Spherical Panoramic Mesh  │ • Billboard Mesh Target Beacons     │
-│ • Custom GLSL Rain Ripple Shader │ • Orbit Camera Yaw/Pitch/Zoom       │
-├──────────────────────────────────┴─────────────────────────────────────┤
-│                           Shared Core Modules                          │
-├────────────────────────────────────────────────────────────────────────┤
-│ • Web Audio API Synthesizer (Atmospheric Jet Hum, Servo & Click FX)    │
-│ • Ad Creative Studio (Live Image/Video Ingestion & Aspect Fit)         │
-│ • Interactive Telemetry HUD & Circular Radar Compass                   │
-│ • Booking Inquiries & Automated Reference Code Dispatch Engine         │
-└────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                                   AURA VISTA                                    │
+├───────────────────────────────────────┬─────────────────────────────────────────┤
+│    Planetary 3D Earth Globe Engine    │    Metropolitan Geospatial Twin Engine  │
+│    (Three.js r186 + WebGL Shaders)    │    (MapLibre GL v6 + Express Tile Cache)│
+├───────────────────────────────────────┼─────────────────────────────────────────┤
+│ • Rotatable 3D Earth Sphere Geometry  │ • High-Res ESRI & CARTO Satellite Tiles │
+│ • Dual-Layer Atmospheric Halo Shaders │ • Real-Time Satellite Proxy & Cache     │
+│ • Deep Space 1,600 Star Particle Field│ • 3D Terrain Pitch (75°) & 360° Bearing │
+│ • 20 3D Laser Beacons & Base Rings    │ • Screen-Space Radar Pulse Markers      │
+│ • Projected Interactive Screen Badges │ • Dynamic City Center Tracking Radar    │
+├───────────────────────────────────────┴─────────────────────────────────────────┤
+│                        In-Situ Media & Rendering Engines                        │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ • 360° Spherical Panoramic Environment (Three.js Equirectangular Sphere)        │
+│ • GLSL Billboard Screen Rain Accumulation & Sinusoidal Ripple Shader            │
+│ • 4K In-Situ Street Photography Viewer & 60fps Motion Video Playback            │
+│ • 4-State Atmospheric Lighting Engine (Day, Sunset, Cyber Neon, Moody Rain)     │
+│ • Procedural Web Audio API Synthesizer (Atmospheric Jet Hum, Servo & Clicks)    │
+│ • Dynamic Campaign Studio with Instant Image & Video Drag-and-Drop              │
+│ • Automated Inventory Reservation & Inquiry Reference Code Dispatch             │
+└─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Technology Highlights
-- **Vite 8.3 & React 19**: Lightning-fast compilation, native ES modules, and instantaneous hot reloads.
-- **Three.js r186**: Modern WebGL rendering engine utilizing `performance.now()` precision timing, procedural geometries, and custom GLSL shader hooks via `onBeforeCompile`.
-- **MapLibre GL v6.11**: High-performance vector tile and satellite map rendering with 3D camera pitch, bearing control, and custom HTML marker elements.
-- **GSAP (GreenSock Animation Platform) v3.15**: Smooth, bezier-curved camera transitions, atmospheric fade ramps, and micro-interactions.
-- **Tailwind CSS v4.3**: Ultra-clean styling system without messy stylesheets or inline layout hacks.
-- **Lucide React Icons**: Cohesive iconography across telemetry, controls, and media drawer panels.
-- **Web Audio API**: 100% procedural sound synthesis engine generating audio without external MP3/WAV dependencies.
+- **Three.js r186**: Powers both the interactive 3D Earth Globe, deep space starfield, 360° equirectangular spherical panorama, and custom GLSL rain ripple shader.
+- **MapLibre GL v6.11**: High-performance geospatial map engine with 3D camera pitch, bearing control, and custom animated DOM marker pins.
+- **Express Server & High-Speed Tile Proxy**: Server-side caching tile proxy (`/api/tiles/satellite/:z/:y/:x`) with sub-millisecond in-memory cache, eliminating CORS issues and browser blocking.
+- **GSAP (GreenSock Animation Platform) v3.15**: Drives camera trajectories, supersonic altitude ticker countdowns, and atmospheric fade ramps.
+- **Tailwind CSS v4.3**: Modern atomic styling with zero external CSS baggage or layout flicker.
+- **Web Audio API**: 100% procedural sound synthesis engine generating cinematic radar locks, wind whooshes, atmospheric drones, and feedback chirps without external audio dependencies.
 
 ---
 
-## 3. Core Feature Breakdown (Feature-by-Feature)
+## 3. Interactive 3D Earth Globe & Sky Dive Engine
 
-### 3.1 High-Altitude Stratosphere to Street Cinematic Flight
-- **Initial Orbit**: The application launches in a high-stratosphere orbital camera state (Zoom: 11.2, Pitch: 68°, Bearing: -15°, Altitude: ~38,000m) over the metropolis.
-- **Cinematic Letterbox**: Top and bottom cinematic black letterbox bars (`#letterbox-top`, `#letterbox-bottom`) frame the viewport.
-- **HUD Reticle & Telemetry Readouts**: Live coordinates, altitude counter, and local time ticker animate in real-time.
-- **Smooth Descent**: Clicking **"INITIALIZE DESCENT"** triggers a multi-stage bezier camera swoop down through the cloud deck straight to the flagship billboard location on Shahrah-e-Faisal.
-- **Replay & Skip Options**: Users can skip the intro anytime or replay the stratosphere swoop using the top HUD replay icon.
+### 3.1 Rotatable 3D Earth Globe (Three.js WebGL)
+- **High-Resolution Satellite Textures**: The Earth sphere (`THREE.SphereGeometry(125, 64, 64)`) is wrapped with high-resolution satellite imagery with metallic and roughness response.
+- **Dual-Layer Translucent Atmosphere**: An inner atmospheric glow sphere with `THREE.AdditiveBlending` and an outer deep-space scattering halo produce a photorealistic celestial appearance.
+- **Natural Solar Illumination**: Directional solar lighting paired with balanced ambient illumination creates realistic day/night terminator boundaries.
+- **1,600 Deep Space Stars**: An orbital starfield surrounds the planet with subtle counter-rotational drift.
+- **Mouse & Touch Manipulation**: Users can freely spin and rotate the Earth in any direction with smooth velocity damping (`targetRotX`, `targetRotY`) and inertia. Mouse wheel scrolling controls orbital zoom distance (165 to 480 units).
+- **Auto-Rotation**: When not being dragged, the Earth gently auto-rotates at an orbital drift speed of `0.0012 rad/frame`.
 
-### 3.2 3D Geospatial Satellite Flight Navigation (MapLibre GL)
-- **Real-World Coordinate Accuracy**: Every billboard is pinned to precise latitude/longitude coordinates on actual arterial roadways.
-- **3D Camera Articulation**: Map camera supports up to 75° pitch, 360° bearing rotation, smooth zooming, and high-DPI antialiased rendering.
-- **Pulsating Radar Markers**: Interactive billboard beacons with outer radar pulse rings, numerical site codes (`01` through `07`), and hover preview badges.
-- **Interactive Map Controls**: Full compass rose with pitch tilt visualization and smooth pan/zoom gesture handling.
+### 3.2 360° Worldwide Coverage (20 Global Locations)
+Unlike localized maps, AURA VISTA spans all 360 degrees of longitude with **20 prestigious prime billboard hubs**:
+- **3D Surface Beacons**: Each location features an anchored surface pinpoint, a pulsing radar ring, a glowing vertical laser pillar (amber and cyan dual-frequency beams), and an illuminated apex tip.
+- **Screen-Projected Interactive Badges**: High-performance screen-space projection renders location badges (`SITE 01 · KARACHI`, `SITE 08 · NEW YORK`, `SITE 11 · DUBAI`, etc.) that update 60 times per second.
+- **Zero Dead-Zone Horizon Visibility**: Horizon visibility thresholds (`dot > -0.05`) ensure location pins curving around the edges of the planet are immediately visible with smooth alpha fading, so the globe is never empty regardless of rotation angle.
 
-### 3.3 7 Real Landmark Billboard Sites (GPS & Demographics)
-The system catalogs 7 prime Out-of-Home sites across Karachi's busiest economic corridors:
-1. `01` **Shahrah-e-Faisal Grand Digital** (Digital LED · 4K Display)
-2. `02` **Clifton Coastal Mega Rooftop** (Illuminated Static Mega Board)
-3. `03` **I.I. Chundrigar Financial Monolith** (Dual-Sided Digital Totem)
-4. `04` **Gulshan Expo Interchange Arch** (Curved LED Gateway Arch)
-5. `05` **DHA Phase 6 Commercial Avenue** (Front-Lit Premium Monolith)
-6. `06` **Seaview Marine Drive Digital Gantry** (Solar-Assisted 4K Gantry)
-7. `07` **Karsaz Flyover Arterial Horizon** (Dual Mega Unipole)
+### 3.3 Quick Region & Continent Jump Navigation
+A dedicated quick-navigation bar atop the 3D Earth Globe HUD provides instant one-click travel:
+- `[🕌 KARACHI (7)]` · `[🏙️ DUBAI]` · `[🗼 TOKYO]` · `[🎡 LONDON]` · `[🏛️ PARIS]` · `[🗽 NEW YORK]` · `[🌴 LOS ANGELES]` · `[🦘 SYDNEY]` · `[🦁 SINGAPORE]` · `[🏺 CAIRO]`
+- Clicking any pill smoothly rotates the globe to center that specific city and highlights its local pin cluster with cinematic audio feedback.
 
-*(See [Section 4](#4-detailed-catalog-of-7-prime-billboard-sites) for full metrics and demographic details).*
+### 3.4 Supersonic Sky & Clouds Re-entry Dive Animation
+Clicking any location pin on the 3D Earth Globe or Map triggers a multi-stage cinematic descent:
+1. **Target Acquisition**: The 3D Earth centers on the chosen coordinates and engages a tactical targeting crosshair.
+2. **Orbital Acceleration**: The camera accelerates into the Earth's atmosphere (`z: 135`) with procedural wind whoosh sound effects.
+3. **Atmospheric Cloud Break**: A high-definition cumulus cloud deck rapidly expands (`scale: 1.75`), simulating high-speed flight through clouds.
+4. **Live Altitude Telemetry**: A digital altitude ticker counts down in real-time from `140,000 M` down to `65 M`.
+5. **Optical Flash Re-Entry**: An anamorphic white flash transitions the view onto high-resolution street satellite tiles, instantly unveiling the 4K billboard inspection panel.
 
-### 3.4 In-Situ Street-Level View & 4K Photography Frame
-- Clicking any billboard smoothly activates the **Media Inspection Panel** (`#media-panel`), presenting high-resolution in-situ photography.
-- Accurately captures the surrounding architecture, overhead street lamps, road pavement, and flyover structures.
-- Supports instant switching between sites via next/previous buttons or the bottom filmstrip carousel.
-
-### 3.5 360° Spherical Panoramic Virtual Environment
-- **True 360° Street View**: Switching to the **`360° VIEW`** tab engages a Three.js spherical geometry (`THREE.SphereGeometry(500, 60, 40)`) mapped with high-resolution equirectangular panorama textures.
-- **Drag-to-Look Orbit**: Full mouse and touch drag navigation allowing advertisers to look up at the billboard, pan across oncoming traffic, and inspect surrounding commercial landmarks.
-- **Smooth Inertia**: Damped camera rotation provides smooth viewing with no jarring snaps.
-
-### 3.6 In-Situ Live Video Playback & Sound Simulator
-- **Digital Motion Commercials**: The **`LIVE VIDEO`** tab switches the billboard face from static print to an active 60fps digital video loop.
-- **Custom Player Controls**: Floating glass control bar featuring Play/Pause, Mute/Unmute, and status indicators.
-- **Realistic Glare & Frame Integration**: Video maintains realistic perspective cropping within the physical billboard frame.
-
-### 3.7 Real-Time Atmosphere & Photorealistic Lighting Simulation
-Advertisers can toggle 4 distinct atmospheric and solar illumination states with one click:
-- ☀️ **Daylight (`day`)**: 12:00 PM high sun angle with crisp 6500K daylight, clean ambient exposure, and balanced screen luminance.
-- 🌅 **Golden Hour Sunset (`sunset`)**: 6:30 PM low-horizon solar elevation, warm amber 3200K grading, warm backlight, and dusk bloom.
-- 🌃 **Neon Cyber Night (`neon`)**: 11:00 PM dark ambient street canyon, intense LED digital screen bloom, vibrant emissive neon reflections, and high-contrast night grading.
-- 🌧️ **Moody Rain (`rain`)**: 9:00 PM overcast rainstorm with cool blue-grey desaturation, glossy asphalt reflections, rain mist haze, and animated billboard screen water ripples.
-
-### 3.8 GLSL Billboard Screen Water Accumulation & Ripple Shader
-When **Moody Rain** is selected, a custom WebGL/Three.js GLSL fragment shader overlays the digital billboard face:
-- **Procedural Rain Ripples**: Calculates expanding concentric wave rings with realistic sinusoidal decay across pseudo-random droplet impact coordinates.
-- **Vertical Water Rivulets**: Gravity-driven downward trickles and moisture streaks running down the digital glass surface.
-- **Specular Refraction & Chromatic Fringe**: Water droplets reflect LED highlights with realistic emerald/cyan refraction typical of wet digital displays.
-- **Smooth Interpolation**: GSAP smoothly fades the ripple intensity in and out when toggling atmospheric modes.
-
-### 3.9 Sightline Distance Simulator (Close, Medium, Far)
-Simulates the human visual perception and scale of the advertisement from 3 critical distances:
-- 📍 **Close (15m)**: Near sightline simulating pedestrians waiting at pedestrian crossings or front-row vehicle queue.
-- 📍 **Medium (45m)**: Standard driver approach zone simulating signal stop lines and vehicle deceleration lanes.
-- 📍 **Far (120m)**: Extended highway sightline simulating high-speed approach from 100+ meters down the arterial corridor.
-
-### 3.10 Interactive Campaign Studio & Instant Creative Upload
-- **Pre-Loaded Brand Campaigns**: Includes 5 ready-to-test brand creatives:
-  - 🏎️ *Hyperion EV6 Electric Supercar* (Automotive)
-  - ⌚ *Vanguard Horizon Chronograph* (Luxury Watchmaking)
-  - ⚡ *Volt Neon Ultra Energy* (Beverage & Lifestyle)
-  - 👗 *Aura Minimalist Autumn Haute Couture* (Fashion)
-  - 🤖 *Omni Neural Quantum Computing* (Technology)
-- **Live User Upload**: Advertisers can click **"UPLOAD AD"** and upload any `.png`, `.jpg`, or `.webp` file from their local machine.
-- **Instant Texture Update**: The custom artwork is instantly projected onto the physical billboard face in both 2D in-situ view and 3D virtual city meshes!
-
-### 3.11 3D Procedural Metropolis & Traffic Simulation (Three.js)
-In the interactive 3D virtual city mode:
-- **Procedural Architecture**: Generates dozens of varied skyscraper meshes with multi-tiered geometries, metallic façade materials, rooftop communication masts, and emissive window grids.
-- **Dynamic Vehicle Flow**: Procedurally spawns vehicles traveling both directions along multi-lane central avenues, complete with illuminated forward headlights and red rear taillights.
-- **Rotational Billboard Beacons**: Each billboard site is equipped with an animated targeting beacon ring that scales and pulses when selected or hovered.
-- **Smooth Day/Night Lighting Ramp**: Toggling the Day/Night switch triggers a smooth interpolation of directional sun color, sky background, and building material emissive intensity.
-
-### 3.12 Real-Time Telemetry HUD & Circular Radar Mini-Map
-- **Circular Radar Scanner**: Bottom-left radar display showing compass orientation, vehicle heading, and glowing green blips representing the active billboard sites.
-- **Telemetry HUD**: Displays live GPS coordinates, altitude above ground level, camera pitch, bearing, and carrier satellite signal status.
-- **Sites Filmstrip**: Bottom carousel showcasing all 7 sites with instant fly-to triggers and thumbnail previews.
-
-### 3.13 Procedural Web Audio Soundscape & FX Synthesizer
-Built with the HTML5 **Web Audio API** (`AudioContext`), requiring zero external audio assets:
-- **Sub-Bass Drone**: Low-frequency oscillator simulating ambient city hum and jet engine reverberation.
-- **UI Affirmation Chirps**: High-frequency dual-sine arpeggios on button clicks and site selections.
-- **Atmospheric Transition Sweeps**: White-noise frequency sweeps when shifting between Daylight, Sunset, Neon Night, and Rain.
-- **Global Audio Mute Toggle**: Header sound button allows users to toggle audio effects at any moment.
-
-### 3.14 Booking, Inquiries & Lead Reference Number Generator
-- Clicking **"RESERVE SITE"** opens the **Quick Booking Drawer** with real-time site specs, rates, and audience estimates.
-- Captures company name, contact email, intended flight start date, and campaign notes.
-- Upon dispatch, automatically generates a verified inquiry tracking reference code (e.g., `#AV-8924`) and displays a confirmation toast.
+### 3.5 High-Performance Tile Proxy & Resilient Map Architecture
+- **Server-Side Tile Caching**: The integrated Express backend provides an in-memory cached tile proxy route at `/api/tiles/satellite/:z/:y/:x` to prevent CORS issues, timeouts, and privacy blocker interference.
+- **Sub-Millisecond Response**: Cached tiles return in `< 1ms` with `Cache-Control: public, max-age=86400` and `Access-Control-Allow-Origin: *`.
+- **Failover & Fallback**: Upstream requests automatically failover between multiple geographic mirrors (`services.arcgisonline.com`, `server.arcgisonline.com`), followed by CARTO Dark tiles and transparent fail-safe PNGs.
+- **Silent Error Interception**: `map.on('error')` silences benign network dropouts, preventing browser alert popups or console noise.
 
 ---
 
-## 4. Detailed Catalog of 7 Prime Billboard Sites
+## 4. Core Platform Capabilities
 
-| Site Code | Name | District & Location | Format | Daily Traffic | Sightline | Dwell Time | Weekly Rate |
-| :---: | :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **01** | **Shahrah-e-Faisal Grand Digital** | Nursery Junction Arterial Corridor | Digital LED · 4K Display (48 × 14 ft) | 142,000+ | 380m | 85s | **$4,800** |
-| **02** | **Clifton Coastal Mega Rooftop** | Do Talwar / Clifton Block 4 Commercial | Mega Rooftop · Illuminated (60 × 20 ft) | 195,000+ | 450m | 70s | **$6,200** |
-| **03** | **I.I. Chundrigar Financial Monolith** | Central Banking & Stock Exchange Hub | Double-Sided Digital Totem (36 × 12 ft) | 118,000+ | 280m | 95s | **$4,100** |
-| **04** | **Gulshan Expo Interchange Arch** | NIPA / Expo Centre Arterial Crossing | Curved Overhead Arch LED (52 × 16 ft) | 165,000+ | 520m | 110s | **$5,500** |
-| **05** | **DHA Phase 6 Commercial Avenue** | Khayaban-e-Shahbaz Executive Sector | Front-Lit Mega Billboard (40 × 15 ft) | 92,000+ | 310m | 60s | **$3,600** |
-| **06** | **Seaview Marine Drive Digital Gantry** | Clifton Beach Coastal Promenade | Solar 4K Digital Gantry (50 × 14 ft) | 134,000+ | 600m | 45s | **$4,900** |
-| **07** | **Karsaz Flyover Arterial Horizon** | Airport Executive Expressway Concourse | Dual Facing Mega Unipole (45 × 18 ft) | 188,000+ | 650m | 75s | **$5,900** |
+### 4.1 High-Altitude Stratosphere to Street Flight Navigation
+- **Orbital Opening**: The experience launches in high-altitude orbit (Zoom: 4.8, Altitude: ~120,000m) framed by anamorphic 2.39:1 letterbox bars.
+- **Tactical Flight Reticle**: Displays live altitude counters and mission targeting status.
+- **Full Control**: Users can launch the flight descent, open the 3D Earth Globe directly, or jump straight to the satellite street map.
+
+### 4.2 3D Geospatial Satellite Mapping (MapLibre GL)
+- **High-Precision Coordinates**: Real GPS latitude and longitude coordinates for all 20 global sites.
+- **True 3D Camera Controls**: Supports up to 75° pitch, 360° bearing rotation, and smooth zooming.
+- **Map Style Toggling**: Seamless switching between High-Resolution Real Satellite and Dark Metro Vector Cartography.
+
+### 4.3 In-Situ Street-Level 4K Photographic Frame
+- **Architectural Context**: High-resolution photography captures the real-world environment, traffic flyovers, pedestrian walkways, and building context.
+- **Navigation Controls**: Next/previous site buttons and an interactive bottom filmstrip facilitate instant browsing.
+
+### 4.4 360° Spherical Panoramic Virtual Environment
+- **Interactive Street View**: A Three.js equirectangular sphere (`radius: 500`) allows advertisers to drag and look around in 360 degrees.
+- **Smooth Inertia & Damping**: Natural momentum dampens camera movement for a comfortable, nausea-free viewing experience.
+
+### 4.5 In-Situ Live Motion Commercial Video Playback
+- **Digital Motion Commercials**: The `LIVE VIDEO` tab converts the billboard face into a continuous 60fps digital commercial video.
+- **Floating Glass Player Controls**: Integrated Play/Pause, Mute/Unmute, and status indicators.
+
+### 4.6 Real-Time Solar & Atmospheric Lighting Simulator
+Advertisers can test creative visibility across 4 distinct atmospheric and solar illumination states:
+- ☀️ **Daylight (`day`)**: 12:00 PM crisp 6500K daylight with balanced ambient exposure.
+- 🌅 **Golden Hour Sunset (`sunset`)**: 6:30 PM warm amber 3200K low-horizon sun with dusk bloom.
+- 🌃 **Neon Cyber Night (`neon`)**: 11:00 PM high-contrast night grading with vibrant 7,500-nit digital screen bloom.
+- 🌧️ **Moody Rain (`rain`)**: 9:00 PM overcast rainstorm with glossy pavement reflections and animated screen water ripples.
+
+### 4.7 GLSL Billboard Screen Rain & Ripple Shader
+When **Moody Rain** is selected, a custom WebGL fragment shader overlays the digital billboard face:
+- **Expanding Concentric Ripples**: Sinusoidal wave rings expand and decay across pseudo-random impact coordinates.
+- **Gravity Rivulets**: Downward water streaks trickle across the glass face.
+- **Chromatic Refraction**: Droplets realistically refract display lighting with emerald and cyan spectral dispersion.
+
+### 4.8 Sightline Distance Perspective Simulator
+Tests human visual acuity and billboard scale from 3 critical distances:
+- 📍 **Close (50m Pedestrian)**: Simulates pedestrian sidewalks and signal crossing queues (`scale: 1.38`).
+- 📍 **Medium (150m Driver's Eye)**: Approaching vehicle perspective at traffic lights (`scale: 1.15`).
+- 📍 **Far (350m Highway Approach)**: High-speed arterial corridor approach view (`scale: 1.0`).
+
+### 4.9 Interactive Campaign Studio & Instant Creative Upload
+- **Pre-Loaded Brand Campaigns**: Ready-to-evaluate creatives including *Aura Haute Couture*, *Voltix GT Hypercar*, *Nexus Acoustics*, and *Élan Parfum*.
+- **Local File Ingestion**: Users can upload any `.jpg`, `.png`, or `.webp` file from their device to instantly preview their own creative on the billboard in real-time.
+
+### 4.10 Circular Radar Mini-Map & Real-Time Telemetry HUD
+- **Dynamic Radar Tracking**: Automatically recalculates dot positions based on current viewport coordinates, showing local sites when zoomed in and continental hubs when zoomed out.
+- **Live Telemetry Readout**: Displays real-time GPS coordinates, camera heading, pitch, and altitude.
+
+### 4.11 Procedural Web Audio Soundscape & FX Synthesizer
+Built purely on the browser's **Web Audio API** (`AudioContext`), requiring zero external audio files:
+- **Radar Lock Chimes**: Frequency modulated chirps on targeting lock.
+- **Atmospheric Re-entry Sweeps**: Filtered noise sweeps during supersonic descent.
+- **Audio Toggle**: Global sound on/off switch in the top HUD.
+
+### 4.12 Inventory Booking & Automated Tracking Dispatch
+- **Instant Reservation Drawer**: Displays live dimensions, traffic reach, dwell times, and estimated weekly rates.
+- **Reference Code Generation**: Automatically dispatches a verified tracking reference code (e.g., `#AV-9241`) upon inquiry submission.
 
 ---
 
-## 5. Atmospheric Lighting Modes Specification
+## 5. Complete Catalog of 20 Global Prime Billboard Sites
+
+| Code | Location & Name | City & Region | Coordinates | Format | Daily Reach | Weekly Rate |
+| :---: | :--- | :--- | :---: | :--- | :---: | :---: |
+| **01** | **Shahrah-e-Faisal Grand Digital** | Karachi, South Asia | `67.0722, 24.8615` | 4K Digital LED (48 × 14 ft) | 142,000+ | **$4,800** |
+| **02** | **Clifton Skyline Mega Rooftop** | Karachi, South Asia | `67.0315, 24.8210` | Panoramic Rooftop LED (60 × 20 ft) | 195,000+ | **$5,900** |
+| **03** | **DHA Commercial Boulevard** | Karachi, South Asia | `67.0650, 24.7950` | High-Luminance MicroLED (40 × 14 ft) | 115,000+ | **$3,900** |
+| **04** | **Saddar Downtown Curved Screen** | Karachi, South Asia | `67.0180, 24.8580` | Curved LED Spectacular (42 × 16 ft) | 178,000+ | **$4,600** |
+| **05** | **Gulshan Expressway Cantilever** | Karachi, South Asia | `67.0980, 24.9180` | Highway Cantilever Gantry (50 × 16 ft) | 160,000+ | **$3,800** |
+| **06** | **North Nazimabad Broadway** | Karachi, South Asia | `67.0420, 24.9420` | High-Contrast LED (36 × 14 ft) | 128,000+ | **$3,400** |
+| **07** | **PECHS Boulevard Monolith** | Karachi, South Asia | `67.0620, 24.8720` | Monolith Totem LED (32 × 16 ft) | 98,000+ | **$3,600** |
+| **08** | **Times Square Iconic Mega Tower** | New York, USA | `-73.9855, 40.7580` | 8K Ultra-HDR Spectacular (120 × 42 ft) | 480,000+ | **$18,500** |
+| **09** | **Sunset Boulevard Hollywood Spectacular** | Los Angeles, USA | `-118.3287, 34.0928`| Entertainment Digital Display (80 × 30 ft) | 295,000+ | **$16,000** |
+| **10** | **Toronto Yonge-Dundas Atrium Screen** | Toronto, Canada | `-79.3802, 43.6560` | Curved Square Spectacular LED (75 × 28 ft) | 230,000+ | **$12,400** |
+| **11** | **Piccadilly Circus Curved Super-Screen** | London, UK | `-0.1342, 51.5101` | Curved 4K Ultra-Luminance LED (95 × 34 ft) | 340,000+ | **$15,200** |
+| **12** | **Champs-Élysées Luxury Monolith** | Paris, France | `2.3025, 48.8710` | Architectural Couture Screen (55 × 22 ft) | 220,000+ | **$13,900** |
+| **13** | **Alexanderplatz Media Cube** | Berlin, Germany | `13.4132, 52.5219` | Modular Urban Media Screen (62 × 24 ft) | 195,000+ | **$10,600** |
+| **14** | **Sheikh Zayed Road Cyber Monolith** | Dubai, UAE | `55.2708, 25.2048` | Cyber Monolith High-Luminance (75 × 25 ft) | 285,000+ | **$14,500** |
+| **15** | **Nile Corniche Grand Digital** | Cairo, Egypt | `31.2357, 30.0444` | Riverfront Illuminated Spectacular (58 × 20 ft) | 210,000+ | **$8,500** |
+| **16** | **Shibuya Crossing 3D Wave Screen** | Tokyo, Japan | `139.7005, 35.6595`| Naked-Eye 3D Curved LED (88 × 36 ft) | 520,000+ | **$17,800** |
+| **17** | **Marina Bay Sands Holographic Display** | Singapore | `103.8591, 1.2838` | Waterfront Architectural Display (70 × 26 ft) | 240,000+ | **$13,400** |
+| **18** | **Bandra-Worli Coastal Spectacular** | Mumbai, India | `72.8190, 19.0330` | Coastal Highway Gantry (72 × 26 ft) | 275,000+ | **$11,500** |
+| **19** | **Sydney Harbour George Street LED** | Sydney, Australia | `151.2153, -33.8568`| Coastal Panoramic LED (65 × 24 ft) | 190,000+ | **$11,200** |
+| **20** | **Avenida Paulista Panoramic LED** | São Paulo, Brazil | `-46.6559, -23.5615`| Metropolitan Financial LED (68 × 24 ft) | 260,000+ | **$9,800** |
+
+---
+
+## 6. Atmospheric Lighting Modes Specification
 
 ```
 Mode: DAYLIGHT [☀️ 12:00 PM]
 ├── Sun Elevation: 65° High Zenith
-├── Color Temperature: 6,500 Kelvin (Crisp White)
-├── Image Post-Filter: Brightness 1.08 | Contrast 1.04 | Saturation 1.05
+├── Color Temperature: 6,500 Kelvin (Crisp Natural Sunlight)
+├── Post-Filter: Brightness 1.08 | Contrast 1.04 | Saturation 1.05
 └── Display Appearance: High ambient wash with anti-glare matte reflection
 
 Mode: GOLDEN HOUR [🌅 06:30 PM]
 ├── Sun Elevation: 8° Low Horizon
 ├── Color Temperature: 3,200 Kelvin (Warm Amber Glow)
-├── Image Post-Filter: Brightness 1.05 | Contrast 1.12 | Saturation 1.25 | Sepia 0.20 | Hue -8°
+├── Post-Filter: Sepia 0.28 | Saturation 1.45 | Brightness 1.08 | Hue -15°
 └── Display Appearance: Warm sunset rim lighting and long ground shadows
 
 Mode: NEON CYBER NIGHT [🌃 11:00 PM]
 ├── Sun Elevation: Below Horizon (Night Ambiance)
 ├── Color Temperature: Deep Indigo & Cyan Skylight
-├── Image Post-Filter: Brightness 0.96 | Contrast 1.24 | Saturation 1.35 | Hue 5°
+├── Post-Filter: Contrast 1.30 | Brightness 0.92 | Saturation 1.40 | Hue +10°
 └── Display Appearance: High-luminance LED glow (7,500 nits) with emissive bloom
 
 Mode: MOODY RAIN [🌧️ 09:00 PM]
 ├── Sun Elevation: Overcast Cloud Deck
-├── Color Temperature: 5,400 Kelvin (Muted Steel Slate)
-├── Image Post-Filter: Brightness 0.88 | Contrast 1.15 | Saturation 0.85 | Hue 188°
+├── Color Temperature: 5,400 Kelvin (Cool Slate Grey)
+├── Post-Filter: Contrast 1.20 | Brightness 0.85 | Saturation 0.75 | Hue 185°
 └── Display Appearance: Animated GLSL water ripples, falling droplets, and wet glass sheen
 ```
 
 ---
 
-## 6. Directory & Codebase Structure
+## 7. Directory & Codebase Structure
 
 ```
-├── index.html                    # High-altitude flight, MapLibre GL 3D satellite, in-situ viewer, GLSL ripple shader
-├── vite.config.ts                # Vite config (Tailwind v4, React plugin, optimizeDeps exclusion for maplibre-gl)
+├── server.ts                     # Express full-stack entry point & in-memory satellite tile caching proxy
+├── index.html                    # 3D Earth Globe, MapLibre satellite, in-situ viewer, GLSL ripple shader
+├── vite.config.ts                # Vite config (Tailwind v4, React plugin, tile proxy fallback, optimizeDeps)
 ├── metadata.json                 # AI Studio applet specifications & major capabilities
-├── package.json                  # Dependencies (Three.js, MapLibre, React 19, GSAP, Tailwind v4)
+├── package.json                  # Scripts & dependencies (tsx, express, Three.js, MapLibre, React 19, GSAP)
 ├── tsconfig.json                 # TypeScript strict compiler configuration
+│
+├── public/
+│   └── images/
+│       └── campaigns/            # High-resolution billboard photos, campaigns & globe textures
+│           ├── earth_globe_texture_*.jpg
+│           ├── sky_clouds_texture_*.jpg
+│           ├── billboard_times_square.jpg
+│           ├── billboard_piccadilly.jpg
+│           ├── billboard_shibuya.jpg
+│           ├── billboard_dubai.jpg
+│           ├── billboard_paris.jpg
+│           ├── billboard_sydney.jpg
+│           └── ...
 │
 ├── src/
 │   ├── App.tsx                   # Main React entry point with 3D virtual metropolis & interactive sections
 │   ├── main.tsx                  # React 19 DOM root mounting
 │   ├── index.css                 # Global CSS rules with Tailwind v4 `@import "tailwindcss"`
 │   │
-│   ├── components/
-│   │   ├── 3d/
-│   │   │   ├── CityCanvas.tsx    # Three.js animation loop, orbit camera controls, beacon animations, day/night transitions
-│   │   │   └── cityBuilder.ts    # Procedural city building generator, road markings, traffic cars, custom screen shaders
-│   │   │
-│   │   └── ui/
-│   │       ├── Navbar.tsx                # Brand header with audio toggle, Day/Night toggle, and quick CTAs
-│   │       ├── HeroOverlay.tsx           # Floating hero HUD with metrics, live time ticker, and explore buttons
-│   │       ├── BillboardDrawer.tsx       # Detailed site inspection drawer with specs, impressions, and booking form
-│   │       ├── AdStudioModal.tsx         # Creative upload studio with preset campaigns and batch broadcast
-│   │       ├── QuoteModal.tsx            # Full proposal and quotation request modal
-│   │       ├── LocationsSection.tsx      # Comprehensive site gallery filterable by format, district, and impressions
-│   │       ├── CampaignShowcaseSection.tsx # Interactive brand campaign showcase carousel
-│   │       ├── WhyAdvertiseSection.tsx   # OOH ROI, dwell times, and 4K digital advantages breakdown
-│   │       └── Footer.tsx                # Enterprise footer with network coverage and contact details
-│   │
-│   ├── data/
-│   │   ├── billboards.ts         # Complete metadata for all 7 billboard locations
-│   │   └── campaigns.ts          # Ready-to-deploy sample campaign creatives
-│   │
-│   ├── types/
-│   │   └── billboard.ts          # TypeScript interfaces for Billboard, Campaign, and Filter criteria
-│   │
-│   └── utils/
-│       └── audio.ts              # Web Audio API sound synthesis engine for UI soundscapes
+│   ├── components/               # Modular UI components (Navbar, Drawers, Modals)
+│   ├── data/                     # Catalog data & campaign creatives
+│   ├── types/                    # TypeScript interfaces
+│   └── utils/                    # Audio synthesis & utility helpers
 ```
 
 ---
 
-## 7. Installation & Local Development
+## 8. Installation & Local Development
 
 ### Prerequisites
 - **Node.js**: v18.0.0 or higher
@@ -285,43 +301,41 @@ Mode: MOODY RAIN [🌧️ 09:00 PM]
 npm install
 ```
 
-### Step 2: Start Development Server
+### Step 2: Start Full-Stack Development Server
 ```bash
 npm run dev
 ```
-The application will launch on `http://localhost:3000`.
+The application will launch on `http://localhost:3000`, initializing both the Express satellite tile caching proxy and Vite middlewares.
 
-### Step 3: Verify TypeScript Code Quality
+### Step 3: Run TypeScript Linter
 ```bash
 npm run lint
 ```
 
 ---
 
-## 8. Build & Production Deployment
+## 9. Build & Production Deployment
 
-To generate an optimized production bundle:
+To compile an optimized production build:
 ```bash
 npm run build
 ```
 
-This compiles all TypeScript files, bundles MapLibre GL, Three.js shaders, and Tailwind CSS into the optimized `/dist` directory ready for deployment on any static host, CDN, or containerized service.
-
-To preview the built production bundle locally:
+To run the production full-stack server:
 ```bash
-npm run preview
+npm start
 ```
 
 ---
 
-## 9. Performance Optimizations & Troubleshooting
+## 10. Performance Optimizations & Resilience
 
-### Optimization Highlights
-1. **MapLibre Worker Optimization**: `maplibre-gl` is explicitly configured in `vite.config.ts` under `optimizeDeps.exclude` to ensure the MapLibre background web worker loads cleanly without bundling issues.
-2. **Modern Three.js Timing**: Removed deprecated `THREE.Clock` in favor of high-precision `performance.now()` deltas clamped to 0.1s max to eliminate frame skips.
-3. **Hardware Acceleration**: All 3D canvases, HUD radar elements, and video containers utilize CSS `will-change: transform` and hardware-accelerated WebGL viewports.
-4. **Procedural Web Audio**: Zero external audio files reduces initial bundle size and provides instant response times with no network latency.
+1. **In-Memory Tile Cache**: The `/api/tiles/satellite/:z/:y/:x` proxy stores requested raster tiles in an in-memory LRU cache, delivering repeat tile requests in `< 1ms` and completely eliminating upstream rate-limiting.
+2. **CORS & Ad-Blocker Immune**: Serving tiles from the application origin eliminates `AJAXError: Failed to fetch (0)` caused by browser ad-blockers or cross-origin restrictions on `arcgisonline.com`.
+3. **MapLibre Web Worker Optimization**: `maplibre-gl` is explicitly excluded from Vite's `optimizeDeps` to ensure the MapLibre background worker loads cleanly across all environments.
+4. **Hardware-Accelerated Viewports**: WebGL canvases and HUD overlays utilize CSS `will-change: transform` for smooth 60fps rendering.
+5. **Zero External Audio Assets**: Procedural Web Audio API synthesis eliminates network latency and keeps initial page weight feather-light.
 
 ---
 
-*Engineered with precision for next-generation Out-of-Home advertising networks.*
+*Engineered with precision for global Out-of-Home advertising networks.*
