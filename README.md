@@ -260,7 +260,7 @@ Mode: MOODY RAIN [🌧️ 09:00 PM]
 ├── server.ts                     # Express full-stack entry point & in-memory satellite tile caching proxy
 ├── index.html                    # 3D Earth Globe, MapLibre satellite, in-situ viewer, GLSL ripple shader
 ├── vite.config.ts                # Vite config (Tailwind v4, React plugin, tile proxy fallback, optimizeDeps)
-├── metadata.json                 # AI Studio applet specifications & major capabilities
+├── metadata.json                 #  applet specifications & major capabilities
 ├── package.json                  # Scripts & dependencies (tsx, express, Three.js, MapLibre, React 19, GSAP)
 ├── tsconfig.json                 # TypeScript strict compiler configuration
 │
